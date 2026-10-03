@@ -34,6 +34,38 @@ if (
 
 const pool = mysql.createPool(dbConfig);
 
+// Auto-initialize table and sample seed data if not yet created
+async function initDb() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS reviews (
+        id INT NOT NULL AUTO_INCREMENT,
+        roomId VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        date VARCHAR(255) DEFAULT NULL,
+        rating INT DEFAULT NULL,
+        comment TEXT DEFAULT NULL,
+        PRIMARY KEY (id)
+      )
+    `);
+    
+    const [rows] = await pool.query('SELECT COUNT(*) as count FROM reviews');
+    if (rows[0].count === 0) {
+      await pool.query(`
+        INSERT INTO reviews (roomId, name, date, rating, comment) VALUES
+        ('superior-twin', 'Juan Dela Cruz', 'Oct 2, 2026', 5, 'Napaka-comfortable ng beds at malamig ang aircon!'),
+        ('superior-queen', 'Maria Santos', 'Oct 3, 2026', 4, 'Very accessible and cozy room. Babalik kami!'),
+        ('deluxe-room', 'Carlos Reyes', 'Oct 1, 2026', 5, 'Relaxing staycation with the family.')
+      `);
+      console.log('Default seed reviews created.');
+    }
+    console.log('Database initialized successfully.');
+  } catch (err) {
+    console.error('Error auto-initializing DB:', err.message);
+  }
+}
+initDb();
+
 // Health check endpoint for cloud monitoring (Render, UptimeRobot, etc.)
 app.get('/health', async (req, res) => {
   try {
