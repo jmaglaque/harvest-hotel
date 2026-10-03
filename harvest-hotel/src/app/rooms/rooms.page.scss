@@ -1,0 +1,233 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+}
+
+.book-now-btn {
+  --background: #b68511;
+  --color: #0c3b2b;
+  font-weight: 700;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  top: 0;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+h2 {
+  color: #0c3b2b;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0;
+  font-size: 40px;
+}
+
+.rooms-header p {
+  margin: 15px auto;
+}
+
+.rooms-header {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.rooms-container {
+  padding: 20px;
+  display: grid;
+  gap: 5px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .rooms-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+ion-card {
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+ion-card img {
+  border-radius: 15px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+ion-card-header {
+  padding: 10px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+ion-card-subtitle {
+  font-size: 20px;
+  color: #555;
+  margin-top: 5px;
+}
+
+ion-modal ion-toolbar {
+  --background: #fff;
+  --min-height: 75px;
+}
+
+ion-modal ion-toolbar ion-button {
+  text-transform: none;
+  --border-radius: 10px;
+}
+
+ion-modal img {
+  width: 100%;
+  border-radius: 10px;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+ion-modal div#basic-info h3 {
+  font-weight: 800;
+  font-size: 28px;
+}
+
+ion-modal div#basic-info p {
+  text-align: center;
+}
+
+ion-modal section {
+  border-top: 3px solid #ddd;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+ion-modal section#details > div {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  ion-modal section#details > div {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+ion-modal section#details > div > div {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+ion-modal section#details > div > div > ion-label {
+  color: #7a7a7a;
+  font-size: 14px;
+}
+
+ion-modal section#details > div > div > p {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+ion-modal h4 {
+  margin-bottom: 10px;
+}
+
+ion-modal .features-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
+  grid-template-columns: 1fr 1fr;
+  max-width: 500px;
+}
+
+ion-modal .features-list > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Reviews tab styles */
+.review-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+  border: 1px solid #e0e0e0;
+}
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.review-date {
+  font-size: 12px;
+  color: #777;
+}
+.review-stars {
+  color: #ffcc00;
+  font-size: 16px;
+}
+.review-body {
+  margin-top: 8px;
+  color: #333;
+}
+.review-actions {
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:8px;
+}
+
+.rating-row {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+}
+.rating-label { min-width: 60px; }
+.rating-stars .star {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #bbb;
+}
+.rating-stars .star.active { color: #ffcc00; }
+
+#bookBtn {
+  --background: #b68511;
+}
+
+ion-modal ion-item {
+  --padding-start: 0;
+}
+
+ion-modal ion-item ion-label {
+  font-size: 20px;
+}

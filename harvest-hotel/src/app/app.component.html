@@ -1,0 +1,38 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu side="start" contentId="main-content">
+      <ion-header >
+        <ion-toolbar class="menu-toolbar">
+          <div class="menu-brand">
+            <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+          </div>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="menu-content">
+        <ion-list id="pages-list">
+          @for (p of appPages; track p; let i = $index) {
+            <ion-menu-toggle auto-hide="false">
+              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                <ion-icon aria-hidden="true" slot="start" [ios]="p.icon" [md]="p.icon"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          }
+        </ion-list>
+      </ion-content>
+      <!-- Footer: user profile -->
+      <ion-footer>
+        <ion-item lines="none" routerLink="/account" routerDirection="root" detail="false">
+          <ion-avatar slot="start">
+            <img [src]="user.avatar || 'assets/img/avatar.png'" alt="User avatar">
+          </ion-avatar>
+          <ion-label>
+            <h3>{{ user.fullName || 'Guest User' }}</h3>
+            <p id="user-email">{{ user.email || 'Not set' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

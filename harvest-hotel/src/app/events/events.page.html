@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="events-header">
+    <h2>EVENT PACKAGES</h2>
+    <p>Perfect venue for your special moments</p>
+  </div>
+
+  <ion-modal #eventModal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+      <div class="ion-padding menu-modal-header">
+        <h3>Event Menu</h3>
+        <p>Choose your preferred dishes for your event</p>
+        <p class="menu-desc">{{ formatChoiceOf(selectedRoom?.menu?.choiceOf) }}</p>
+      </div>
+      <ion-content class="ion-padding menu-modal">
+        <div *ngIf="selectedRoom?.menu">
+
+          <div class="menu-grid">
+            <div *ngFor="let c of selectedRoom.menu.category" class="menu-col">
+              <h5 class="menu-col-label">{{ c.label }}</h5>
+              <ul>
+                <li *ngFor="let it of c.items">{{ it }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-actions">
+            <ion-button color="primary" expand="full" (click)="eventModal.dismiss(); closeModal()">Okay</ion-button>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <div class="events-container">
+    @for (e of events; track e; let i = $index) {
+      <ion-card>
+        <img alt="Image of {{ e.title }}" src="assets/img/events/{{ e.image }}" />
+        <ion-card-header>
+          <ion-card-title>{{ e.title }}</ion-card-title>
+        </ion-card-header>
+        <div>
+          <section class="event-inclusions">
+            <h4>Inclusions</h4>
+            <ul>
+              @for (inclusion of e.inclusions; track inclusion; let j = $index) {
+                <li>{{ inclusion }}</li>
+              }
+            </ul>
+          </section>
+          <section class="rates-inclusions">
+            <h4>Rates</h4>
+            <div>
+              @for (rate of e.rates; track rate; let k = $index) {
+                <div>
+                  <p>{{ rate.pax }}</p>
+                  <p>₱{{ formatPrice(rate.price) }}</p>
+                </div>
+              }
+            </div>
+            <section>
+              ₱{{ formatPrice(e.extraPaxPrice) }} per person in excess
+            </section>
+          </section>
+        </div>
+
+        <div class="event-actions">
+          <ion-button color="dark" (click)="openDetails(e)">View Menu</ion-button>
+          <ion-button color="primary" (click)="bookNow(e)">Book Now</ion-button>
+        </div>
+      </ion-card>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>My Account</h2>
+
+  <div class="account-grid">
+    <div class="avatar-box">
+      <div class="avatar-preview">
+        <img *ngIf="account.avatar; else placeholder" [src]="account.avatar" alt="avatar">
+        <ng-template #placeholder>
+          <div class="avatar-placeholder">{{ (account.fullName || 'U').charAt(0) }}</div>
+        </ng-template>
+      </div>
+      <input type="file" accept="image/*" (change)="onAvatarChange($event)" />
+    </div>
+
+    <div class="account-form">
+      <ion-item>
+        <ion-label position="stacked">Full Name</ion-label>
+        <ion-input [(ngModel)]="account.fullName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="account.email"></ion-input>
+      </ion-item>
+
+      <div class="actions">
+        <ion-button color="primary" (click)="saveAccount()">Save</ion-button>
+      </div>
+
+      <div class="password-section">
+        <h3>Change Password (simulated)</h3>
+        <ion-item>
+          <ion-label position="stacked">New Password</ion-label>
+          <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+        </ion-item>
+        <div class="actions">
+          <ion-button color="secondary" (click)="changePassword()">Set Password</ion-button>
+          <div class="pw-hint">{{ account.hasPassword ? 'A password is set' : 'No password set' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,47 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+}
+
+.book-now-btn {
+  --background: #b68511;
+  --color: #0c3b2b;
+  font-weight: 700;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  top: 0;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+/* account page styles */
+.account-grid { display:flex; gap:20px; align-items:flex-start; max-width:900px; margin:16px auto }
+.avatar-box { width:160px; text-align:center }
+.avatar-preview { width:120px; height:120px; margin:0 auto 8px; border-radius:999px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#f0f0f0 }
+.avatar-preview img { width:100%; height:100%; object-fit:cover }
+.avatar-placeholder { font-size:40px; color:#fff; background:#0b4b3d; width:100%; height:100%; display:flex; align-items:center; justify-content:center }
+.account-form { flex:1 }
+.actions { margin-top:12px }
+.password-section { margin-top:16px; border-top:1px solid #eee; padding-top:12px }
+.pw-hint { margin-top:8px; color:#666; font-size:13px }
+
+@media (max-width:640px) {
+  .account-grid { flex-direction:column; align-items:center }
+  .avatar-box { width:100% }
+}

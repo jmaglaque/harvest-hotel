@@ -1,0 +1,7 @@
+{
+  "name": "Harvest Hotel",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

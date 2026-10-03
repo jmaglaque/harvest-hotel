@@ -1,0 +1,273 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+}
+
+.book-now-btn {
+  --background: #b68511;
+  --color: #0c3b2b;
+  font-weight: 700;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  top: 0;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+h2 {
+  color: #0c3b2b;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0;
+  font-size: 40px;
+}
+
+.events-header p {
+  margin: 15px auto;
+}
+
+.events-header {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.events-container {
+  padding: 20px;
+  display: grid;
+  gap: 5px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .events-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+ion-card {
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  --ion-card-color: #000
+}
+
+ion-card img {
+  border-radius: 15px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+ion-card-header {
+  padding: 10px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.event-inclusions {
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  ion-card > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+}
+
+.rates-inclusions {
+  text-align: left;
+}
+
+.rates-inclusions > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.rates-inclusions > div > div {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rates-inclusions > div > div > p {
+  margin: 0;
+}
+
+.rates-inclusions > section {
+  border-top: 3px solid #000;
+  margin: 10px 0;
+  padding-top: 10px;
+}
+
+// Modal Styles for Event Details
+ion-modal ion-toolbar {
+  --background: #fff;
+  --min-height: 75px;
+}
+
+ion-modal ion-toolbar ion-button {
+  text-transform: none;
+  --border-radius: 10px;
+}
+
+ion-modal img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+ion-modal div#basic-info h3 {
+  font-weight: 800;
+  font-size: 28px;
+}
+
+ion-modal div#basic-info p {
+  text-align: center;
+}
+
+ion-modal section {
+  border-top: 3px solid #ddd;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+ion-modal section#details > div {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  ion-modal section#details > div {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+ion-modal section#details > div > div {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+ion-modal section#details > div > div > ion-label {
+  color: #7a7a7a;
+  font-size: 14px;
+}
+
+ion-modal section#details > div > div > p {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+ion-modal h4 {
+  margin-bottom: 10px;
+}
+
+ion-modal .features-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
+  grid-template-columns: 1fr 1fr;
+  max-width: 500px;
+}
+
+ion-modal .features-list > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#bookBtn {
+  --background: #b68511;
+}
+
+ion-modal ion-item {
+  --padding-start: 0;
+}
+
+ion-modal ion-item ion-label {
+  font-size: 20px;
+}
+
+/* Event Menu modal */
+.menu-modal .menu-desc {
+  color: #333;
+  margin-bottom: 12px;
+}
+.menu-modal .menu-grid {
+  display: grid;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+@media (min-width: 640px) {
+  .menu-modal .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.menu-modal .menu-col-label {
+  color: #0c3b2b;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.menu-modal ul { padding-left: 16px; margin:0; }
+.menu-modal li { margin-bottom:6px; font-size:0.95rem; }
+.menu-modal .menu-actions { margin-top:18px; }
+
+@media (min-width: 800px) {
+  .menu-modal .menu-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.menu-modal-header h3 {
+  color: #0c3b2b;
+  margin: 0;
+}
+
+.menu-modal-header p {
+  margin-bottom: 0;
+}
+
+.event-actions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+@media (min-width: 640px) {
+  .event-actions {
+    flex-direction: row;
+    width: fit-content;
+  }
+}

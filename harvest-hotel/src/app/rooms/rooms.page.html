@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="rooms-header">
+    <h2>OUR ROOMS</h2>
+    <p>Discover comfort in our thoughtfully designed rooms, where modern Filipino elegance creates your perfect Cavan of Joy. Our 83 fully furnished accommodations blend contemporary style with homey touches, perfect for family getaways or business stays in our family hotel in Nueva Ecija. Each room offers a warm, welcoming atmosphere that makes every moment of your stay truly memorable.</p>
+  </div>
+  <div class="rooms-container">
+    @for (r of rooms; track r; let i = $index) {
+      <ion-card>
+        <img alt="Image of {{ r.title }}" src="assets/img/rooms/{{ r.image }}" />
+        <ion-card-header>
+          <ion-card-title>{{ r.title }}</ion-card-title>
+          <ion-card-subtitle>₱{{ formatPrice(r.price) }} / night</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-button color="secondary" (click)="openDetails(r)">View Details</ion-button>
+      </ion-card>
+    }
+  </div>
+
+  <!-- Declarative modal for room details -->
+  <ion-modal #roomModal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="roomModal.dismiss(); closeModal()" aria-label="Close" fill="solid" color="primary">
+              <ion-icon slot="start" name="arrow-back"></ion-icon>
+              Back to Rooms
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <div id="basic-info">
+          <h3>{{ selectedRoom?.title }}</h3>
+          <img src="assets/img/rooms/{{ selectedRoom?.image }}" alt="{{ selectedRoom?.title }}" />
+          <p>{{ selectedRoom?.description }}</p>
+        </div>
+
+        <section id="details">
+          <h4>Room Details</h4>
+          <div>
+            <div>
+              <ion-label>Room Size</ion-label>
+              <p slot="end">{{ selectedRoom?.sqm }} sqm</p>
+            </div>
+            <div>
+              <ion-label>Room Capacity</ion-label>
+              <p slot="end">{{ selectedRoom?.capacity }}</p>
+            </div>
+            <div>
+              <ion-label>Bed Configuration</ion-label>
+              <p slot="end">{{ selectedRoom?.bedConfig }}</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h4>Room Features</h4>
+          <div class="features-list">
+            @for (feature of selectedRoom?.features; track feature; let j = $index) {
+              <div>
+                <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                <ion-label>{{ feature }}</ion-label>
+              </div>
+            }
+          </div>
+        </section>
+        <section>
+          <h4>Guest Reviews</h4>
+          <ion-segment value="read" (ionChange)="setReviewTab($event.detail.value)">
+          <ion-segment-button value="read">
+            Read Reviews
+          </ion-segment-button>
+          <ion-segment-button value="write">
+            Write a Review
+          </ion-segment-button>
+        </ion-segment>
+
+        <div style="padding:12px">
+          <div *ngIf="reviewTab === 'read'">
+            <div *ngIf="reviews.length === 0">No reviews yet.</div>
+            <div *ngFor="let r of reviews" class="review-card">
+              <div class="review-head">
+                <div>
+                  <strong>{{ r.name }}</strong>
+                  <div class="review-date">{{ r.date }}</div>
+                </div>
+                <div class="review-stars">{{ '★'.repeat(r.rating) }}{{ '☆'.repeat(5 - r.rating) }}</div>
+              </div>
+              <div class="review-body">{{ r.comment }}</div>
+              <div class="review-actions">
+                <ion-button size="small" fill="clear" (click)="editReview(r)">Edit</ion-button>
+                <ion-button size="small" fill="clear" color="danger" (click)="deleteReview(r.id)">Delete</ion-button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="reviewTab === 'write'">
+            <ion-item>
+              <ion-label position="stacked">Your Name</ion-label>
+              <ion-input [(ngModel)]="reviewForm.name" placeholder="Enter your name"></ion-input>
+            </ion-item>
+
+            <div class="rating-row">
+              <div class="rating-label">Rating</div>
+              <div class="rating-stars">
+                <button type="button" class="star" [class.active]="reviewForm.rating >= 1" (click)="setRating(1)">☆</button>
+                <button type="button" class="star" [class.active]="reviewForm.rating >= 2" (click)="setRating(2)">☆</button>
+                <button type="button" class="star" [class.active]="reviewForm.rating >= 3" (click)="setRating(3)">☆</button>
+                <button type="button" class="star" [class.active]="reviewForm.rating >= 4" (click)="setRating(4)">☆</button>
+                <button type="button" class="star" [class.active]="reviewForm.rating >= 5" (click)="setRating(5)">☆</button>
+              </div>
+            </div>
+
+            <ion-item>
+              <ion-label position="stacked">Your Comment</ion-label>
+              <ion-textarea [(ngModel)]="reviewForm.comment" placeholder="Type your comment"></ion-textarea>
+            </ion-item>
+
+            <div style="padding:16px; text-align:center">
+              <ion-button expand="block" color="primary" (click)="submitReview()" [disabled]="submitting || !reviewForm.name || reviewForm.rating <= 0 || !reviewForm.comment">{{ editingReview ? 'Update Review' : 'Submit Review' }}</ion-button>
+              <ion-button *ngIf="editingReview" expand="block" fill="outline" color="medium" (click)="cancelEdit()">Cancel</ion-button>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        <div style="padding:16px; text-align:center">
+          <ion-button id="bookBtn" expand="block" (click)="roomModal.dismiss(); bookNow()">Book Now</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

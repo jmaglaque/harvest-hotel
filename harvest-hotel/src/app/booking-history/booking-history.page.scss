@@ -1,0 +1,117 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+	position: absolute;
+	left: 50%;
+	/* center horizontally and vertically within the toolbar */
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+
+:host {
+	--padding: 16px;
+}
+.page-title { font-size: 24px; color: #0b4b3d; margin: 0 0 4px; }
+.subtitle { color: #a67b2a; margin: 0 0 12px; }
+.tabs { display:flex; gap:12px; margin-bottom:12px; }
+.tab { background:transparent; border:none; padding:8px 12px; cursor:pointer; color:#333 }
+.tab.active { border-bottom:2px solid #0b4b3d }
+.list { display:flex; flex-direction:column; gap:16px; max-width:800px; margin:0 auto; }
+.history-card { background:#fff; border-radius:12px; box-shadow:0 2px 0 rgba(0,0,0,0.06); padding:12px; }
+.card-body { display:flex; flex-direction: column; }
+.card-body-info { display:flex; justify-content:space-between; align-items:center; flex-direction: row; margin-bottom: 5px; }
+.room-title { font-weight:700; color:#1b3b33 }
+.room-id { color:#999; font-weight:500; margin-left:6px }
+.book-info { display:grid; gap:24px; grid-template-columns: 1fr 1fr; width: 100%; }
+.label { font-size:12px; color:#666 }
+.value { font-weight:600 }
+.status { padding:6px 10px; border-radius:12px; text-transform:capitalize }
+.card-actions { display:flex; gap:12px; margin-top:12px }
+.status-approved { background:#e6f6ec; color:#13824e }
+.status-pending { background:#eef3ff; color:#4169d8 }
+.status-cancelled { background:#fff0f0; color:#d0422d }
+.no-bookings { color:#666; padding:12px; }
+
+/* Cost box styling to match design */
+.cost-box {
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	padding: 12px;
+	margin-top: 12px;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+
+	> div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 6px 4px;
+		font-size: 14px;
+		color: #333;
+	}
+
+	> div .label { color: #666; font-size: 13px }
+	> div .value { font-weight: 700 }
+
+	hr { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0 }
+
+	footer {
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+		padding-top: 8px;
+		margin-top: 8px;
+		border-top: 1px solid #f0f0f0;
+		font-weight: 800;
+		font-size: 15px;
+	}
+}
+
+ul {
+  margin-top: 0;
+  padding: 0 40px;
+}
+
+/* Modal styles for booking details */
+.booking-details-modal { max-width:900px; margin: 0 auto; }
+.modal-title { text-align:center; font-size:20px; color:#0b4b3d; font-weight:700 }
+.section { margin: 18px 0 }
+.section-title { color:#b67e12; font-size:18px; margin-bottom:10px }
+.section-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+.section-grid .full-width { grid-column: 1 / -1 }
+.small { color:#7a7a7a; font-size:12px }
+.value { color:#103e33; font-weight:700 }
+.menu-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px }
+.menu-col { background:transparent }
+.menu-col ul { padding-left:16px; margin:6px 0 }
+.cost-box { background:#fff; border:1px solid #eee; padding:12px; border-radius:6px }
+.modal-actions { display:flex; gap:12px; justify-content:center; margin-top:18px }
+.btn-print { --background:#0b4b3d; color:#fff }
+.btn-cancel { --background:#d0422d; color:#fff }
+
+@media (max-width:640px) {
+	.section-grid { grid-template-columns:1fr }
+	.booking-details-modal { padding: 12px }
+}
+
+ion-modal ion-toolbar {
+  --background: #fff
+}

@@ -1,0 +1,287 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding history-page">
+  <h2 class="page-title">Booking History</h2>
+  <p class="subtitle">View and manage all your reservations</p>
+
+  <ion-segment value="room">
+      <ion-segment-button value="room" content-id="room">
+        <ion-label>Room</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="event" content-id="event">
+        <ion-label>Event</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="bookings.length === 0" class="no-bookings">No bookings yet.</div>
+
+    <ion-segment-view>
+      <ion-segment-content id="room">
+        <div class="list">
+          <div *ngIf="getRoomBookings().length === 0" class="no-bookings">No room bookings yet.</div>
+          <div *ngFor="let b of getRoomBookings()" class="history-card">
+            <div class="card-body">
+              <div class="card-body-info">
+                <div class="room-title">{{ b.room?.title }} <span class="room-id">#{{ b.room?.id }}</span></div>
+                <ion-badge class="status" [class]="statusClass(b.status)">{{ b.status }}</ion-badge>
+              </div>
+              <div class="book-info">
+                <div>
+                  <div class="label">Check-in Date</div>
+                  <div class="value">{{ formatDate(b.checkIn) }}</div>
+                </div>
+                <div>
+                  <div class="label">Check-out Date</div>
+                  <div class="value">{{ formatDate(b.checkOut) }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <ion-button color="primary" (click)="view(b)">VIEW</ion-button>
+              <ion-button color="danger" (click)="cancel(b)" [disabled]="(b.status || '').toLowerCase() === 'cancelled'">CANCEL</ion-button>
+              <ion-button color="danger" fill="outline" size="small" (click)="deleteBooking(b)">DELETE</ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-segment-content>
+
+      <ion-segment-content id="event">
+        <div class="list">
+          <div *ngIf="getEventBookings().length === 0" class="no-bookings">No event bookings yet.</div>
+          <div *ngFor="let b of getEventBookings()" class="history-card">
+            <div class="card-body">
+              <div class="card-body-info">
+                <div class="room-title">{{ b.event?.title }} <span class="room-id">#{{ b.event?.id }}</span></div>
+                <ion-badge class="status" [class]="statusClass(b.status)">{{ b.status }}</ion-badge>
+              </div>
+              <div class="book-info">
+                <div>
+                  <div class="label">Schedule</div>
+                  <div class="value">{{ formatDate(b.dateSchedule || b.form?.dateSchedule) }} <span *ngIf="(b.timeSchedule || b.form?.timeSchedule)">• {{ formatTime(b.timeSchedule || b.form?.timeSchedule) }}</span></div>
+                </div>
+              </div>
+              <div class="card-right">
+              </div>
+            </div>
+            <div class="card-actions">
+              <ion-button color="primary" (click)="view(b)">VIEW</ion-button>
+              <ion-button color="danger" (click)="cancel(b)" [disabled]="(b.status || '').toLowerCase() === 'cancelled'">CANCEL</ion-button>
+              <ion-button color="danger" fill="outline" size="small" (click)="deleteBooking(b)">DELETE</ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-segment-content>
+    </ion-segment-view>
+
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title class="modal-title">Full Booking Details</ion-title>
+          <ion-buttons slot="end">
+            <ion-button fill="clear" (click)="closeModal()">✕</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding booking-details-modal">
+        <div *ngIf="selectedBooking">
+          <!-- Event booking layout -->
+          <div *ngIf="(selectedBooking.type || '').toString().toLowerCase() === 'event'; else roomDetails">
+            <section class="section">
+              <h3 class="section-title">Booking Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Package Type</div>
+                  <div class="value">{{ selectedBooking.packageType }}</div>
+                </div>
+                <div>
+                  <div class="small">Date Schedule</div>
+                  <div class="value">{{ formatDate(selectedBooking.dateSchedule) }}</div>
+                </div>
+                <div>
+                  <div class="small">Time Schedule</div>
+                  <div class="value">{{ formatTime(selectedBooking.timeSchedule) }}</div>
+                </div>
+                <div class="full-width">
+                  <div class="small">Special Request</div>
+                  <div class="value">{{ selectedBooking.notes || '-' }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Guest Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Full name</div>
+                  <div class="value">{{ selectedBooking.fullName }}</div>
+                </div>
+                <div>
+                  <div class="small">Contact Number</div>
+                  <div class="value">{{ selectedBooking.contact }}</div>
+                </div>
+                <div class="full-width">
+                  <div class="small">Email Address</div>
+                  <div class="value">{{ selectedBooking.email }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section" *ngIf="selectedBooking.event?.menu">
+              <h3 class="section-title">Menu Selection</h3>
+              <div class="menu-grid">
+                <ng-container *ngFor="let cat of selectedBooking.event.menu.category">
+                  <div *ngIf="hasMenuSelections(selectedBooking, cat.key)" class="menu-col">
+                    <div class="small">{{ cat.label }}</div>
+                    <ul>
+                      <li *ngFor="let s of getMenuSelections(selectedBooking, cat.key)">{{ s }}</li>
+                    </ul>
+                  </div>
+                </ng-container>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Payment Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Payment method</div>
+                  <div class="value">{{ paymentMethodLabel(selectedBooking.paymentMethod) }}</div>
+                </div>
+                <div>
+                  <div class="small">Payment Type</div>
+                  <div class="value">{{ paymentTypeLabel(selectedBooking.paymentType) }}</div>
+                </div>
+                <div>
+                  <div class="small">Amount Paid</div>
+                  <div class="value">₱{{ formatCurrency(selectedBooking.downpaymentAmount) }}</div>
+                </div>
+                <div>
+                  <div class="small">Balance</div>
+                  <div class="value">₱{{ formatCurrency(selectedBooking.total - selectedBooking.downpaymentAmount) }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Cost Summary</h3>
+              <div class="cost-box">
+                <div><div class="small">Package Rate</div><div class="value">₱{{ formatCurrency(selectedBooking.subtotal) }}</div></div>
+                <footer>
+                  <div>Total Amount</div>
+                  <div>₱{{ formatCurrency(selectedBooking.total) }}</div>
+                </footer>
+              </div>
+            </section>
+
+            <div class="modal-actions">
+              <ion-button color="success" class="btn-print" (click)="printBooking()" disabled>Print Booking</ion-button>
+              <ion-button color="danger" class="btn-cancel" (click)="cancel(selectedBooking)" [disabled]="(selectedBooking.status || '').toLowerCase() === 'cancelled'">Cancel Booking</ion-button>
+            </div>
+          </div>
+
+          <!-- Room details fallback -->
+          <ng-template #roomDetails>
+            <section class="section">
+              <h3 class="section-title">Booking Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Room Type</div>
+                  <div class="value">{{ selectedBooking.room?.title }}</div>
+                </div>
+                <div>
+                  <div class="small">Check-in Date</div>
+                  <div class="value">{{ formatDate(selectedBooking.checkIn) }}</div>
+                </div>
+                <div>
+                  <div class="small">Check-out Date</div>
+                  <div class="value">{{ formatDate(selectedBooking.checkOut) }}</div>
+                </div>
+                <div>
+                  <div class="small">Number of Guests</div>
+                  <div class="value">
+                    {{ (selectedBooking.form?.adults || 0) }} Adults
+                    <span *ngIf="selectedBooking.form?.children && selectedBooking.form.children > 0">, {{ selectedBooking.form.children }} Children</span>
+                  </div>
+                </div>
+                <div class="full-width">
+                  <div class="small">Special Request</div>
+                  <div class="value">{{ selectedBooking.form?.notes || '-' }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Guest Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Full Name</div>
+                  <div class="value">{{ selectedBooking.form?.fullName }}</div>
+                </div>
+                <div>
+                  <div class="small">Contact Number</div>
+                  <div class="value">{{ selectedBooking.form?.contact }}</div>
+                </div>
+                <div class="full-width">
+                  <div class="small">Email Address</div>
+                  <div class="value">{{ selectedBooking.form?.email }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Payment Information</h3>
+              <div class="section-grid">
+                <div>
+                  <div class="small">Payment Method</div>
+                  <div class="value">{{ paymentMethodLabel(selectedBooking.form?.paymentMethod) }}</div>
+                </div>
+                <div>
+                  <div class="small">Payment Type</div>
+                  <div class="value">{{ paymentTypeLabel(selectedBooking.form?.paymentType) }}</div>
+                </div>
+                <div>
+                  <div class="small">Amount Paid</div>
+                  <div class="value">₱{{ formatCurrency(selectedBooking.downpaymentAmount) }}</div>
+                </div>
+                <div>
+                  <div class="small">Balance</div>
+                  <div class="value">₱{{ formatCurrency(selectedBooking.total - selectedBooking.downpaymentAmount) }}</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <h3 class="section-title">Cost Summary</h3>
+              <div class="cost-box">
+                <div><div class="small">Room Rate</div><div class="value">₱{{ formatCurrency(selectedBooking.subtotal) }}</div></div>
+                <footer>
+                  <div>Total Amount</div>
+                  <div>₱{{ formatCurrency(selectedBooking.total) }}</div>
+                </footer>
+              </div>
+            </section>
+
+            <div class="modal-actions">
+              <ion-button color="success" class="btn-print" (click)="printBooking()" disabled>Print Booking</ion-button>
+              <ion-button color="warning" (click)="editBooking()" *ngIf="!isEditing">Edit Booking</ion-button>
+              <ion-button color="danger" class="btn-cancel" (click)="cancel(selectedBooking)" [disabled]="(selectedBooking.status || '').toLowerCase() === 'cancelled'" *ngIf="!isEditing">Cancel Booking</ion-button>
+              <ion-button color="danger" fill="outline" (click)="deleteBooking(selectedBooking)" *ngIf="!isEditing">Delete</ion-button>
+              <ion-button color="primary" (click)="saveBookingEdit()" *ngIf="isEditing">Save Changes</ion-button>
+              <ion-button color="medium" fill="outline" (click)="cancelEdit()" *ngIf="isEditing">Cancel</ion-button>
+            </div>
+          </ng-template>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

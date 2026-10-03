@@ -1,0 +1,154 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+  --opacity: 1;
+}
+
+.book-now-btn {
+  --background: #b68511;
+  --color: #0c3b2b;
+  font-weight: 700;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  top: 0;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+#hotel1 {
+  width: 100%;
+  height: auto;
+  min-height: 400px;
+  max-height: 500px;
+  object-fit: cover;
+  object-position: bottom;
+  margin: 0; /* remove default margins from the wrapper */
+  display: block; /* remove inline whitespace below the image */
+  line-height: 0; /* collapse any extra inline spacing */
+  border: 0;
+}
+
+/* Make the welcome-section background pseudo-element visible and cover the area */
+.welcome-section {
+  position: relative;
+  color: #ffffff;
+  padding: 1.75rem 1rem;
+  text-align: center;
+  overflow: hidden;
+  margin: 0; /* ensure no top margin creates a gap */
+  /* minimum height to ensure the background image has space to cover */
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-section .grass-bg {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensure image covers the container */
+  object-position: center center;
+  filter: blur(7.5px) brightness(0.4) hue-rotate(340deg);
+  transform: scale(1.15); /* slight scale to avoid edges showing */
+  margin: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.welcome-section > * {
+  position: relative;
+  z-index: 1; /* keep content above the pseudo-element */
+}
+
+.welcome-section h2 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 0;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.welcome-section p {
+  margin-bottom: 0;
+}
+
+.section {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.section img {
+  inset: 0;
+  min-width: 100%;
+  height: 220px;
+  margin: 0;
+  line-height: 0;
+  object-fit: cover;
+}
+
+.section > div {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 12px;
+  padding: 10px;
+  z-index: 1;
+  margin: 0;
+  max-width: 70%;
+  line-height: normal;
+}
+
+@media (min-width: 640px) {
+  .section img {
+    height: 385px;
+  }
+  .section > div {
+    font-size: 16px;
+    padding: 15px;
+    max-width: 50%;
+  }
+}
+
+.section > div > h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.section > div > p {
+  margin: 0;
+}
+
+.right-align {
+  top: 3%;
+  right: 3%;
+}
+
+
+.left-align {
+  top: 3%;
+  left: 3%;
+}
+
+.welcome-section .learn-more-btn {
+  margin-top: 15px;
+}

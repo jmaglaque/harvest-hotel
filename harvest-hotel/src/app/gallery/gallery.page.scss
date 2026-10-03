@@ -1,0 +1,91 @@
+ion-toolbar {
+  --background: #0c3b2b;
+  --min-height: 75px;
+}
+
+.book-now-btn {
+  --background: #b68511;
+  --color: #0c3b2b;
+  font-weight: 700;
+}
+
+/* Center the logo in the toolbar even with buttons on the left/right */
+ion-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  top: 0;
+}
+
+ion-title img {
+  pointer-events: auto;
+  height: 75px;
+}
+
+ion-toolbar ion-menu-button {
+  color: #ffffff;
+}
+
+.gallery-header {
+  padding: 20px;
+}
+
+.gallery-header h2 {
+  color: #0c3b2b;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0;
+  font-size: 40px;
+}
+.gallery-header p {
+  margin: 15px auto;
+}
+
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px;
+}
+
+.gallery-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+.gallery-card h3 {
+  margin: 0;
+  color: #0c3b2b;
+}
+
+.gallery-grid {
+  padding: 10px 20px;
+  display: grid;
+  gap: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item p {
+  text-align: center;
+  margin-top: 8px;
+  color: #333;
+}
+
+.gallery-item:last-child p {
+  margin-bottom: 0;
+}
