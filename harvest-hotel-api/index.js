@@ -20,14 +20,29 @@ const dbConfig = {
 };
 
 // Enable SSL if running on cloud MySQL (e.g. TiDB, Aiven, PlanetScale)
-if (process.env.DB_SSL === 'true' || process.env.TIDB_ENABLE_SSL === 'true' || process.env.NODE_ENV === 'production') {
-  dbConfig.ssl = { rejectUnauthorized: false };
+if (
+  process.env.DB_SSL === 'true' || 
+  process.env.TIDB_ENABLE_SSL === 'true' || 
+  (process.env.DB_HOST && process.env.DB_HOST.includes('tidbcloud')) ||
+  process.env.NODE_ENV === 'production'
+) {
+  dbConfig.ssl = {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: false
+  };
 }
 
 const pool = mysql.createPool(dbConfig);
 
 // Health check endpoint for cloud monitoring (Render, UptimeRobot, etc.)
-app.get('/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
+app.get('/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ status: 'ok', db: 'connected', uptime: process.uptime() });
+  } catch (err) {
+    res.status(500).json({ status: 'error', db: 'disconnected', error: err.message });
+  }
+});
 app.get('/', (req, res) => res.send('Harvest Hotel API is running!'));
 
 // GET reviews for a room
@@ -38,7 +53,7 @@ app.get('/api/rooms/:roomId/reviews', async (req, res) => {
     res.json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'DB error' });
+    res.status(500).json({ error: 'DB error', details: err.message });
   }
 });
 
@@ -56,7 +71,7 @@ app.post('/api/rooms/:roomId/reviews', async (req, res) => {
     res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'DB error' });
+    res.status(500).json({ error: 'DB error', details: err.message });
   }
 });
 

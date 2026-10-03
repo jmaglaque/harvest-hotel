@@ -4,11 +4,12 @@ import { catchError, map, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewApiService {
-  // Update this base URL to your live Render/Railway URL when deployed
-  // e.g. 'https://harvest-hotel-api.onrender.com/api'
+  // Use local backend when on localhost, and live Render backend when deployed online
   private baseUrl = (typeof window !== 'undefined' && (window as any).API_URL) 
     ? (window as any).API_URL 
-    : 'http://localhost:3000/api';
+    : (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+        ? 'https://harvest-hotel.onrender.com/api'
+        : 'http://localhost:3000/api');
 
   constructor(private http: HttpClient) {}
 
