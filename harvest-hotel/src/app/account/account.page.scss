@@ -1,52 +1,304 @@
-ion-toolbar {
-  --background: #0c3b2b;
-  --min-height: 75px;
-}
-
-.book-now-btn {
-  --background: #b68511;
-  --color: #0c3b2b;
-  font-weight: 700;
-}
-
-/* Center the logo in the toolbar even with buttons on the left/right */
-ion-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+/* Account Page Luxury Styles */
+.luxury-header {
+  position: sticky;
   top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  .header-toolbar {
+    --background: rgba(12, 59, 43, 0.96);
+    --min-height: 72px;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 155, 60, 0.25);
+    padding: 0 12px;
+  }
+
+  .custom-menu-btn {
+    color: #ffffff;
+    --color: #ffffff;
+  }
+
+  .header-logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    top: 0;
+    height: 100%;
+
+    .logo {
+      pointer-events: auto;
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    }
+  }
 }
 
-ion-title img {
-  pointer-events: auto;
-  height: 75px;
+.account-page-content {
+  --background: #faf9f5;
 }
 
-ion-toolbar ion-menu-button {
-  color: #ffffff;
+/* Header Banner */
+.account-header-banner {
+  padding: 44px 20px 24px;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+
+  .category-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #ad822b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .account-page-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0c3b2b;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+
+    @media (min-width: 768px) {
+      font-size: 2.8rem;
+    }
+  }
+
+  .title-gold-bar {
+    width: 60px;
+    height: 3px;
+    background: var(--gold-gradient);
+    margin: 0 auto 18px;
+    border-radius: 9999px;
+  }
+
+  .account-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #525d57;
+    margin: 0;
+  }
 }
 
-/* account page styles */
-.account-grid { display:flex; gap:20px; align-items:flex-start; max-width:900px; margin:16px auto }
-.avatar-box { width:160px; text-align:center }
-.avatar-preview { width:120px; height:120px; margin:0 auto 8px; border-radius:999px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#f0f0f0 }
-.avatar-preview img { width:100%; height:100%; object-fit:cover }
-.avatar-placeholder { font-size:40px; color:#fff; background:#0b4b3d; width:100%; height:100%; display:flex; align-items:center; justify-content:center }
-.account-form {
-  min-width: 100%;
-  max-width: 600px;
- }
-.actions { margin-top:12px }
-.password-section { margin-top:16px; border-top:1px solid #eee; padding-top:12px }
-.pw-hint { margin-top:8px; color:#666; font-size:13px }
-
-.error { color: #b00020; margin-top:8px; font-size:13px }
-
-@media (max-width:640px) {
-  .account-grid { flex-direction:column; align-items:center }
-  .avatar-box { width:100% }
+.account-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 20px 60px;
 }
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+/* Avatar Card */
+.avatar-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(12, 59, 43, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  padding: 32px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .avatar-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+
+    .avatar-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #dfb743;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .avatar-upload-btn {
+      display: inline-block;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #0c3b2b;
+      background: rgba(12, 59, 43, 0.08);
+      border: 1px solid rgba(12, 59, 43, 0.15);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #0c3b2b;
+        color: #ffffff;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+    }
+  }
+
+  .avatar-meta {
+    .profile-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0c3b2b;
+      margin: 0 0 4px;
+    }
+
+    .profile-email {
+      font-size: 0.82rem;
+      color: #727e78;
+      margin: 0 0 12px;
+      word-break: break-all;
+    }
+
+    .role-badge {
+      display: inline-block;
+      background: rgba(200, 155, 60, 0.14);
+      color: #ad822b;
+      border: 1px solid rgba(200, 155, 60, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+/* Account Forms Column */
+.account-forms-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.luxury-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #eeebe2;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  padding: 26px 24px;
+
+  .form-card-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f2eee6;
+
+    h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0c3b2b;
+      margin: 0 0 4px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: #727e78;
+    }
+
+    .pw-rules {
+      font-size: 0.8rem;
+      color: #63706a;
+      line-height: 1.5;
+    }
+  }
+
+  .form-inputs-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .custom-input-item {
+      --background: #fbfbf9;
+      border: 1px solid #ded9cb;
+      border-radius: 12px;
+      padding: 4px 12px;
+
+      ion-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #0c3b2b;
+        letter-spacing: 0.02em;
+      }
+
+      ion-input {
+        font-size: 0.95rem;
+      }
+    }
+
+    .error-msg {
+      color: #c53030;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(197, 48, 48, 0.08);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .actions {
+      margin-top: 6px;
+      display: flex;
+      justify-content: flex-end;
+
+      .save-profile-btn {
+        --background: var(--gold-gradient);
+        --color: #0c3b2b;
+        --border-radius: 9999px;
+        --padding-start: 24px;
+        --padding-end: 24px;
+        font-weight: 700;
+        font-size: 0.84rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        box-shadow: var(--gold-glow);
+
+        &:hover {
+          --background: var(--gold-gradient-hover);
+        }
+      }
+
+      .set-pwd-btn {
+        --border-color: #0c3b2b;
+        --color: #0c3b2b;
+        --border-radius: 9999px;
+        font-weight: 600;
+        font-size: 0.84rem;
+
+        &:hover {
+          --background: rgba(12, 59, 43, 0.06);
+        }
+      }
+    }
+  }
+}
+

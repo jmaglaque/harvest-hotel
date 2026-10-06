@@ -1,36 +1,76 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu side="start" contentId="main-content">
-      <ion-header >
+  <ion-split-pane contentId="main-content" [class.is-collapsed]="isCollapsed">
+    <ion-menu side="start" contentId="main-content" class="luxury-sidebar" [class.collapsed]="isCollapsed">
+      <ion-header class="ion-no-border">
         <ion-toolbar class="menu-toolbar">
-          <div class="menu-brand">
-            <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+          <div class="menu-header-bar" [class.collapsed-bar]="isCollapsed">
+            <a routerLink="/" class="brand-logo-wrap" *ngIf="!isCollapsed" title="Harvest Hotel Home">
+              <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
+            </a>
+
+            <!-- Mini brand logo for collapsed mode -->
+            <div class="mini-brand-wrap" *ngIf="isCollapsed">
+              <a routerLink="/" class="mini-logo-btn" title="Harvest Hotel Home">
+                <img class="logo-mini" src="assets/img/logo.png" alt="Harvest Hotel" />
+              </a>
+            </div>
+
+            <button type="button" class="sidebar-toggle-btn" (click)="toggleSidebar()" [attr.aria-label]="isCollapsed ? 'Expand navigation' : 'Collapse navigation'" [title]="isCollapsed ? 'Expand navigation' : 'Collapse navigation'">
+              <ion-icon [name]="isCollapsed ? 'chevron-forward' : 'chevron-back'"></ion-icon>
+            </button>
           </div>
         </ion-toolbar>
       </ion-header>
+
       <ion-content class="menu-content">
-        <ion-list id="pages-list">
+        <ion-list id="pages-list" class="nav-pills-list">
           @for (p of appPages; track p; let i = $index) {
             <ion-menu-toggle auto-hide="false">
-              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-                <ion-icon aria-hidden="true" slot="start" [ios]="p.icon" [md]="p.icon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
+              <!-- Expanded mode -->
+              <ion-item 
+                *ngIf="!isCollapsed"
+                routerDirection="root" 
+                [routerLink]="[p.url]" 
+                [routerLinkActiveOptions]="{ exact: p.url === '/' }"
+                lines="none" 
+                detail="false" 
+                routerLinkActive="selected" 
+                class="nav-item" 
+                [attr.title]="p.title">
+                <ion-icon aria-hidden="true" slot="start" [name]="p.icon" class="nav-icon"></ion-icon>
+                <ion-label class="nav-text">{{ p.title }}</ion-label>
+                <ion-icon name="chevron-forward" slot="end" class="nav-arrow"></ion-icon>
               </ion-item>
+
+              <!-- Collapsed mode: direct anchor button with centered visible icon -->
+              <a 
+                *ngIf="isCollapsed"
+                [routerLink]="[p.url]" 
+                [routerLinkActiveOptions]="{ exact: p.url === '/' }"
+                routerLinkActive="selected" 
+                class="nav-item-mini" 
+                [attr.title]="p.title"
+                [attr.aria-label]="p.title">
+                <ion-icon [name]="p.icon" class="nav-icon-mini"></ion-icon>
+              </a>
             </ion-menu-toggle>
           }
         </ion-list>
       </ion-content>
-      <!-- Footer: user profile -->
-      <ion-footer>
-        <ion-item lines="none" routerLink="/account" routerDirection="root" detail="false">
-          <ion-avatar slot="start">
-            <img [src]="user.avatar || 'assets/img/avatar.png'" alt="User avatar">
-          </ion-avatar>
-          <ion-label>
-            <h3>{{ user.fullName || 'Guest User' }}</h3>
-            <p id="user-email">{{ user.email || 'Not set' }}</p>
-          </ion-label>
-        </ion-item>
+
+      <!-- Footer: user profile card -->
+      <ion-footer class="ion-no-border menu-footer">
+        <div class="user-profile-card" routerLink="/account" [attr.title]="user.fullName || 'Guest User'">
+          <div class="avatar-wrapper">
+            <img [src]="user.avatar || 'assets/img/avatar.png'" alt="User avatar" class="user-avatar-img">
+            <span class="status-indicator"></span>
+          </div>
+          <div class="user-info" *ngIf="!isCollapsed">
+            <span class="user-role">MY ACCOUNT</span>
+            <h3 class="user-name">{{ user.fullName || 'Guest User' }}</h3>
+            <p class="user-email">{{ user.email || 'guest@harvesthotel.com' }}</p>
+          </div>
+        </div>
       </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

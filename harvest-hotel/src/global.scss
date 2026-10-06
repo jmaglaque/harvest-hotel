@@ -25,13 +25,146 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Global Luxury Hotel Design System */
+html, body {
+  font-family: var(--font-sans);
+  background-color: #faf9f5;
+  color: #1a221e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-// @import '@ionic/angular/css/palettes/dark.system.css';
+h1, h2, h3, .serif-heading {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1efe9;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5c0b0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0c3b2b;
+}
+
+/* Ionic Global Customizations */
+ion-content {
+  --background: #faf9f5;
+  --color: #1a221e;
+}
+
+ion-toolbar {
+  --background: #0c3b2b;
+  --color: #ffffff;
+}
+
+/* Gold Gradient Button Utility */
+.btn-gold {
+  --background: var(--gold-gradient);
+  --color: #0c3b2b;
+  --border-radius: 9999px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  box-shadow: var(--gold-glow);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-gold:hover {
+  --background: var(--gold-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(200, 155, 60, 0.45);
+}
+
+/* Luxury Card Utility */
+.luxury-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.luxury-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Luxury Pill Badges */
+.luxury-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-gold {
+  background: rgba(200, 155, 60, 0.12);
+  color: #ad822b;
+  border: 1px solid rgba(200, 155, 60, 0.3);
+}
+
+.badge-emerald {
+  background: rgba(12, 59, 43, 0.08);
+  color: #0c3b2b;
+  border: 1px solid rgba(12, 59, 43, 0.15);
+}
+
+/* Animations */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* =========================================================
+   RESPONSIVE LUXURY MODALS (Rooms, Events, Booking History)
+   Desktop: Malaki at maluwag (960px width, 88vh height)
+   CP/Mobile: 100% Fullscreen, hindi naiipit o nasisira
+   ========================================================= */
+ion-modal.luxury-room-modal,
+ion-modal.luxury-event-modal,
+ion-modal.luxury-history-modal {
+  --width: 960px;
+  --max-width: 92vw;
+  --height: 88vh;
+  --max-height: 860px;
+  --border-radius: 22px;
+  --box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 768px) {
+  ion-modal.luxury-room-modal,
+  ion-modal.luxury-event-modal,
+  ion-modal.luxury-history-modal {
+    --width: 100% !important;
+    --height: 100% !important;
+    --max-width: 100% !important;
+    --max-height: 100% !important;
+    --border-radius: 0 !important;
+  }
+}
+

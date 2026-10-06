@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea, IonCheckbox, IonMenuButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea, IonCheckbox, IonMenuButton, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { arrowBack } from 'ionicons/icons';
 
 @Component({
   selector: 'app-event-booking',
   templateUrl: './event-booking.page.html',
   styleUrls: ['./event-booking.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea, IonCheckbox, IonMenuButton]
+  imports: [CommonModule, FormsModule, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption, IonTextarea, IonCheckbox, IonMenuButton, IonIcon]
 })
 export class EventBookingPage {
   public event: any = null;
@@ -30,6 +32,7 @@ export class EventBookingPage {
   };
 
   constructor(private route: ActivatedRoute, private router: Router) {
+    addIcons({ arrowBack });
     const nav = this.router.getCurrentNavigation();
     if (nav && nav.extras && (nav.extras as any).state && (nav.extras as any).state.event) {
       this.event = (nav.extras as any).state.event;

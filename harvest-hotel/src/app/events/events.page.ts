@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonMenuButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonModal, IonIcon, IonList, IonItem, IonLabel, IonTabs, IonTab, IonTabButton, IonTabBar, IonSegment, IonSegmentButton, IonInput, IonTextarea } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle } from 'ionicons/icons';
+import { arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle, restaurantOutline, sparklesOutline, timeOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -267,7 +267,7 @@ export class EventsPage implements OnInit {
   public selectedRoom: any = null;
 
   constructor(private router: Router) {
-    addIcons({arrowBack,checkmarkCircleOutline,calendar,personCircle,map,informationCircle});
+    addIcons({ arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle, restaurantOutline, sparklesOutline, timeOutline });
   }
 
   ngOnInit() {

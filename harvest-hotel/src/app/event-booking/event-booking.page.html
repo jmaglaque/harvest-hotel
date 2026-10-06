@@ -1,117 +1,193 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
+      <ion-button (click)="cancel()" fill="clear" class="header-back-btn" aria-label="Back">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>{{ event?.title }}</h2>
+<ion-content class="event-booking-page-content">
+  <div class="event-booking-container">
+    <!-- Header Hero Card for Event -->
+    <div class="event-booking-hero">
+      <div class="hero-badge">EVENT RESERVATION</div>
+      <h2 class="booked-event-title">{{ event?.title }}</h2>
+      <p class="hero-subtitle">Grand ballroom &amp; dedicated event coordination</p>
+    </div>
 
-  <h3>Personal Information</h3>
-  <ion-item>
-    <ion-label position="stacked">Full Name</ion-label>
-    <ion-input [(ngModel)]="form.fullName"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Email Address</ion-label>
-    <ion-input [(ngModel)]="form.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Contact Number</ion-label>
-    <ion-input [(ngModel)]="form.contact"></ion-input>
-  </ion-item>
-
-  <h3>Schedule</h3>
-  <ion-item>
-    <ion-label position="stacked">Date</ion-label>
-    <ion-input type="date" [(ngModel)]="form.dateSchedule"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Time</ion-label>
-    <ion-input type="time" [(ngModel)]="form.timeSchedule"></ion-input>
-  </ion-item>
-
-  <h3>Event Booking</h3>
-  <ion-item>
-    <ion-label position="stacked">Package Type</ion-label>
-    <ion-select [(ngModel)]="form.packageType">
-      <ion-select-option *ngFor="let r of event?.rates" [value]="r.pax">{{ r.pax }} — ₱{{ r.price }}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <h3>Menu Selection</h3>
-  <div *ngFor="let c of event?.menu?.category">
-    <div class="menu-category">
-      <div class="menu-category-header">
-        <strong>{{ c.label }}</strong>
-        <span *ngIf="getEntryLabelForKey(c.key) as el" class="cat-type">{{ el }}</span>
-        <small *ngIf="getEntryForKey(c.key) as entry">(Choose {{ entry.count }})</small>
+    <div class="form-cards-layout">
+      <!-- Personal Information Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">1</div>
+          <div class="step-meta">
+            <h3>Personal Information</h3>
+            <p>Organizer contact details</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Full Name</ion-label>
+            <ion-input [(ngModel)]="form.fullName" placeholder="Organizer full name"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Email Address</ion-label>
+            <ion-input type="email" [(ngModel)]="form.email" placeholder="organizer@example.com"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Contact Number</ion-label>
+            <ion-input type="tel" [(ngModel)]="form.contact" placeholder="0917 123 4567"></ion-input>
+          </ion-item>
+        </div>
       </div>
-      <div class="menu-items">
-        <ion-item *ngFor="let it of c.items">
-          <ion-checkbox slot="start" [checked]="isChecked(c.key, it)" [disabled]="isDisabled(c.key, it)" (ionChange)="onToggleItem(c.key, it, $event.detail.checked)"></ion-checkbox>
-          <ion-label>{{ it }}</ion-label>
-        </ion-item>
+
+      <!-- Schedule Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">2</div>
+          <div class="step-meta">
+            <h3>Event Schedule</h3>
+            <p>Target date and start time for your event</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Date</ion-label>
+            <ion-input type="date" [(ngModel)]="form.dateSchedule"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Time</ion-label>
+            <ion-input type="time" [(ngModel)]="form.timeSchedule"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+
+      <!-- Package Selection Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">3</div>
+          <div class="step-meta">
+            <h3>Event Package</h3>
+            <p>Select your guest capacity package</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-item lines="none" class="custom-input-item full-span">
+            <ion-label position="stacked">Package Type</ion-label>
+            <ion-select [(ngModel)]="form.packageType" placeholder="Select a package">
+              <ion-select-option *ngFor="let r of event?.rates" [value]="r.pax">{{ r.pax }} — ₱{{ r.price }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+
+      <!-- Menu Selection Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">4</div>
+          <div class="step-meta">
+            <h3>Menu Selection</h3>
+            <p>Café Ecija curated dishes for your celebration</p>
+          </div>
+        </div>
+        <div class="menu-categories-wrap">
+          <div *ngFor="let c of event?.menu?.category" class="menu-category-block">
+            <div class="menu-category-header">
+              <strong>{{ c.label }}</strong>
+              <span *ngIf="getEntryLabelForKey(c.key) as el" class="cat-type">{{ el }}</span>
+              <small *ngIf="getEntryForKey(c.key) as entry">(Choose {{ entry.count }})</small>
+            </div>
+            <div class="menu-items-grid">
+              <ion-item *ngFor="let it of c.items" lines="none" class="dish-item">
+                <ion-checkbox slot="start" [checked]="isChecked(c.key, it)" [disabled]="isDisabled(c.key, it)" (ionChange)="onToggleItem(c.key, it, $event.detail.checked)"></ion-checkbox>
+                <ion-label class="dish-name">{{ it }}</ion-label>
+              </ion-item>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Information Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">5</div>
+          <div class="step-meta">
+            <h3>Payment Information</h3>
+            <p>Select your preferred transaction method</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Payment Method</ion-label>
+            <ion-select [(ngModel)]="form.paymentMethod">
+              <ion-select-option value="Gcash">GCash</ion-select-option>
+              <ion-select-option value="Card">Debit/Credit Card</ion-select-option>
+              <ion-select-option value="Maya">Maya</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="custom-input-item">
+            <ion-label position="stacked">Payment Type</ion-label>
+            <ion-select [(ngModel)]="form.paymentType">
+              <ion-select-option value="partial">Partial Payment (20% of total)</ion-select-option>
+              <ion-select-option value="full">Full Payment (100% of total)</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+
+      <!-- Cost Breakdown Receipt Card -->
+      <div class="cost-summary-card">
+        <div class="summary-header">
+          <div class="receipt-icon">&#10022;</div>
+          <h4>Event Cost Summary</h4>
+          <span class="currency-tag">PHP (₱)</span>
+        </div>
+        <div class="summary-divider"></div>
+
+        <div class="summary-rows-wrap">
+          <div class="summary-row">
+            <span class="row-label">Package Rate</span>
+            <span class="row-val">₱{{ formatCurrency(basePrice) }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Extra Guests</span>
+            <span class="row-val">{{ extraGuests }}</span>
+          </div>
+          <div class="summary-row subtotal-row">
+            <span class="row-label">Subtotal</span>
+            <span class="row-val">₱{{ formatCurrency(subtotal) }}</span>
+          </div>
+          <div class="summary-row discount-row" *ngIf="discountAmount > 0">
+            <span class="row-label">Discount ({{ (discountPercent * 100) | number:'1.0-0' }}%)</span>
+            <span class="row-val">-₱{{ formatCurrency(discountAmount) }}</span>
+          </div>
+          <div class="summary-row highlight-row">
+            <span class="row-label">Downpayment ({{ (downpaymentPercent * 100) | number:'1.0-0' }}%)</span>
+            <span class="row-val highlight-val">₱{{ formatCurrency(downpaymentAmount) }}</span>
+          </div>
+        </div>
+
+        <div class="summary-total-footer">
+          <span class="total-label">Total Amount to Pay</span>
+          <span class="total-amount">₱{{ formatCurrency(total) }}</span>
+        </div>
+      </div>
+
+      <!-- Actions Bar -->
+      <div class="booking-actions-bar">
+        <ion-button fill="outline" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit-booking" (click)="submitBooking()" [disabled]="!isFormValid">
+          <span>Confirm &amp; Submit Booking</span>
+        </ion-button>
       </div>
     </div>
-  </div>
-
-  <h3>Payment Information</h3>
-  <ion-item>
-    <ion-label position="stacked">Payment Method</ion-label>
-    <ion-select [(ngModel)]="form.paymentMethod">
-      <ion-select-option value="Gcash">GCash</ion-select-option>
-      <ion-select-option value="Card">Debit/Credit Card</ion-select-option>
-      <ion-select-option value="Maya">Maya</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Payment Type</ion-label>
-    <ion-select [(ngModel)]="form.paymentType">
-      <ion-select-option value="partial">Partial Payment (20% of total)</ion-select-option>
-      <ion-select-option value="full">Full Payment (100% of total)</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <div class="cost-box">
-    <h4>Cost Summary</h4>
-    <div>
-      <div>Package Rate</div>
-      <strong>₱{{ formatCurrency(basePrice) }}</strong>
-    </div>
-    <div>
-      <div>Extra Guests</div>
-      <strong>{{ extraGuests }}</strong>
-    </div>
-    <div>
-      <div>Subtotal</div>
-      <strong>₱{{ formatCurrency(subtotal) }}</strong>
-    </div>
-    <div>
-      <div>Discount ({{ (discountPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>-₱{{ formatCurrency(discountAmount) }}</strong>
-    </div>
-    <!-- <div>
-      <div>Promo ({{ (promoPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>-₱{{ formatCurrency(promoAmount) }}</strong>
-    </div> -->
-    <div>
-      <div>Downpayment ({{ (downpaymentPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>₱{{ formatCurrency(downpaymentAmount) }}</strong>
-    </div>
-    <footer>
-      <div>Total Amount to Pay:</div>
-      <strong>₱{{ formatCurrency(total) }}</strong>
-    </footer>
-  </div>
-
-  <div class="actions">
-    <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
-    <ion-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid">Submit Booking</ion-button>
   </div>
 </ion-content>

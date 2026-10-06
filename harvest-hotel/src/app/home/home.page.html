@@ -1,66 +1,156 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button class="book-now-btn" fill="solid" [routerLink]="['/rooms']">
-        Book Now
+      <ion-button class="book-now-header-btn" fill="solid" [routerLink]="['/rooms']">
+        <span>Book Now</span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div>
-    <img id="hotel1" src="assets/img/home/hotel-1.png" alt="Home Banner" />
-  </div>
-  <div class="welcome-section">
-    <img class="grass-bg" src="assets/img/home/grass-msg.png" alt="Home Banner" />
-    <div>
-      <h2>Your Cavan of Joy in Cabanatuan City</h2>
-      <p>Harvest Hotel is the premier family hotel in Cabanatuan City, Nueva Ecija, offering modern comfort and heartfelt hospitality for exceptional business and leisure stays, while also providing exclusive events packages for remarkable weddings and grand parties.</p>
+<ion-content [fullscreen]="true" class="home-content">
+  <!-- Hero Section -->
+  <div class="hero-container">
+    <div class="hero-image-wrapper">
+      <img id="hotel1" src="assets/img/home/hotel-1.png" alt="Home Banner" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-caption">
+      <div class="hero-badge">
+        <span class="star-icon">&#9733;</span> PREMIER DESTINATION IN NUEVA ECIJA
+      </div>
+      <h1 class="hero-title">Harvest Hotel</h1>
+      <p class="hero-tagline">Warm Filipino Hospitality &bull; Contemporary Elegance</p>
     </div>
   </div>
-  <div class="section">
-    <img src="assets/img/home/reception.png" alt="Reception Image" />
-    <div class="right-align">
-      <p>From our welcoming lobby to our well-appointed rooms, discover why Harvest Hotel is among the best hotels in Cabanatuan City, Philippines for families and travelers seeking quality accommodations with a warm, personal touch.</p>
+
+  <!-- Features Highlight Ribbon -->
+  <div class="highlights-ribbon">
+    <div class="ribbon-item">
+      <span class="ribbon-icon">&#9881;</span>
+      <div class="ribbon-text">
+        <strong>83 Luxury Rooms</strong>
+        <span>Thoughtfully Appointed</span>
+      </div>
+    </div>
+    <div class="ribbon-divider"></div>
+    <div class="ribbon-item">
+      <span class="ribbon-icon">&#9830;</span>
+      <div class="ribbon-text">
+        <strong>Grand Ballroom</strong>
+        <span>Up to 200 Guests</span>
+      </div>
+    </div>
+    <div class="ribbon-divider"></div>
+    <div class="ribbon-item">
+      <span class="ribbon-icon">&#10003;</span>
+      <div class="ribbon-text">
+        <strong>Prime Location</strong>
+        <span>Heart of Cabanatuan City</span>
+      </div>
     </div>
   </div>
-  <div class="section">
-    <img src="assets/img/home/rooms.png" alt="Rooms Image" />
-    <div class="left-align">
-      <h3>Rooms</h3>
-      <p>At Harvest Hotel, our stylishly designed rooms provide the perfect respite for your stay in Cabanatuan City, offering an inviting and comfortable atmosphere for business or leisure guests with plush bedding and modern amenities like air conditioning, flat-screen TVs, and complimentary WiFi.</p>
-      <ion-button class="learn-more-btn" color="light" size="small" [routerLink]="['/rooms']">View Our Rooms</ion-button>
+
+  <!-- Welcome Section -->
+  <section class="welcome-section">
+    <div class="welcome-ornament">&#10040; &#10040; &#10040;</div>
+    <div class="welcome-card">
+      <h2 class="welcome-title">Your Cavan of Joy in Cabanatuan City</h2>
+      <div class="title-gold-bar"></div>
+      <p class="welcome-text">Harvest Hotel is the premier family hotel in Cabanatuan City, Nueva Ecija, offering modern comfort and heartfelt hospitality for exceptional business and leisure stays, while also providing exclusive events packages for remarkable weddings and grand parties.</p>
     </div>
+  </section>
+
+  <!-- Showcase Sections Grid -->
+  <div class="showcases-container">
+    <!-- Reception Section -->
+    <article class="showcase-card showcase-reception">
+      <div class="showcase-media">
+        <img src="assets/img/home/reception.png" alt="Reception Image" loading="lazy" />
+        <div class="media-gradient"></div>
+      </div>
+      <div class="showcase-body">
+        <span class="section-tag">WELCOME EXPERIENCE</span>
+        <h3 class="showcase-title">Heartfelt Hospitality</h3>
+        <p class="showcase-desc">From our welcoming lobby to our well-appointed rooms, discover why Harvest Hotel is among the best hotels in Cabanatuan City, Philippines for families and travelers seeking quality accommodations with a warm, personal touch.</p>
+      </div>
+    </article>
+
+    <!-- Rooms Section -->
+    <article class="showcase-card showcase-rooms reverse-layout">
+      <div class="showcase-media">
+        <img src="assets/img/home/rooms.png" alt="Rooms Image" loading="lazy" />
+        <div class="media-gradient"></div>
+      </div>
+      <div class="showcase-body">
+        <span class="section-tag">ACCOMMODATIONS</span>
+        <h3 class="showcase-title">Rooms</h3>
+        <p class="showcase-desc">At Harvest Hotel, our stylishly designed rooms provide the perfect respite for your stay in Cabanatuan City, offering an inviting and comfortable atmosphere for business or leisure guests with plush bedding and modern amenities like air conditioning, flat-screen TVs, and complimentary WiFi.</p>
+        <div class="showcase-actions">
+          <ion-button class="luxury-action-btn" [routerLink]="['/rooms']">
+            <span>View Our Rooms</span>
+            <ion-icon name="arrow-forward" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Events Section -->
+    <article class="showcase-card showcase-events">
+      <div class="showcase-media">
+        <img src="assets/img/home/events.png" alt="Events Image" loading="lazy" />
+        <div class="media-gradient"></div>
+      </div>
+      <div class="showcase-body">
+        <span class="section-tag">CELEBRATIONS &amp; MEETINGS</span>
+        <h3 class="showcase-title">Events</h3>
+        <p class="showcase-desc">From intimate gatherings to large celebrations, Harvest Hotel is one of the most trusted venues in Cabanatuan City, offering a Grand Ballroom that accommodates up to 200 guests and provides a seamless experience with tailored packages, catering services, and essential amenities like audio-visual equipment and high-speed WiFi for any corporate meeting or wedding reception.</p>
+        <div class="showcase-actions">
+          <ion-button class="luxury-action-btn" [routerLink]="['/events']">
+            <span>View Our Packages</span>
+            <ion-icon name="arrow-forward" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Gallery Section -->
+    <article class="showcase-card showcase-gallery reverse-layout">
+      <div class="showcase-media">
+        <img src="assets/img/home/gallery.png" alt="Gallery Image" loading="lazy" />
+        <div class="media-gradient"></div>
+      </div>
+      <div class="showcase-body">
+        <span class="section-tag">VISUAL TOUR</span>
+        <h3 class="showcase-title">Gallery</h3>
+        <p class="showcase-desc">Explore our gallery to visually confirm that Harvest Hotel delivers its signature blend of modern comfort and heartfelt hospitality, showcasing everything from our stylishly designed rooms and inviting leisure spaces to the versatile Grand Ballroom ready for your next memorable event.</p>
+        <div class="showcase-actions">
+          <ion-button class="luxury-action-btn" [routerLink]="['/gallery']">
+            <span>View Our Gallery</span>
+            <ion-icon name="arrow-forward" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </article>
   </div>
-  <div class="section">
-    <img src="assets/img/home/events.png" alt="Events Image" />
-    <div class="right-align">
-      <h3>Events</h3>
-      <p>From intimate gatherings to large celebrations, Harvest Hotel is one of the most trusted venues in Cabanatuan City, offering a Grand Ballroom that accommodates up to 200 guests and provides a seamless experience with tailored packages, catering services, and essential amenities like audio-visual equipment and high-speed WiFi for any corporate meeting or wedding reception.</p>
-      <ion-button class="learn-more-btn" color="light" size="small"  [routerLink]="['/events']">View Our Packages</ion-button>
+
+  <!-- Final CTA Callout -->
+  <section class="final-cta-section">
+    <div class="cta-inner-card">
+      <div class="cta-badge">&#10022; RESERVATIONS OPEN &#10022;</div>
+      <h2 class="cta-title">Discover Your Joy in the Heart of Cabanatuan</h2>
+      <p class="cta-desc">From memorable family celebrations to peaceful urban retreats, Harvest Hotel stands out among hotels in Cabanatuan City, Philippines, offering the perfect blend of modern comfort and authentic Filipino hospitality. Experience our spacious rooms, premium facilities, and exclusive events – your Cavan of Joy in Nueva Ecija's vibrant center awaits.</p>
+      <div class="cta-action">
+        <ion-button class="cta-book-btn" [routerLink]="['/rooms']">
+          <span>Book Now</span>
+        </ion-button>
+      </div>
     </div>
-  </div>
-  <div class="section">
-    <img src="assets/img/home/gallery.png" alt="Gallery Image" />
-    <div class="left-align">
-      <h3>Gallery</h3>
-      <p>Explore our gallery to visually confirm that Harvest Hotel delivers its signature blend of modern comfort and heartfelt hospitality, showcasing everything from our stylishly designed rooms and inviting leisure spaces to the versatile Grand Ballroom ready for your next memorable event.</p>
-      <ion-button class="learn-more-btn" color="light" size="small"  [routerLink]="['/gallery']">View Our Gallery</ion-button>
-    </div>
-  </div>
-  <div class="welcome-section">
-    <img class="grass-bg" src="assets/img/home/grass-msg.png" alt="Home Banner" />
-    <div>
-      <h2>Discover Your Joy in the Heart of Cabanatuan</h2>
-      <p>From memorable family celebrations to peaceful urban retreats, Harvest Hotel stands out among hotels in Cabanatuan City, Philippines, offering the perfect blend of modern comfort and authentic Filipino hospitality. Experience our spacious rooms, premium facilities, and exclusive events – your Cavan of Joy in Nueva Ecija's vibrant center awaits.</p>
-      <ion-button class="learn-more-btn" color="light" size="small" [routerLink]="['/rooms']">Book Now</ion-button>
-    </div>
-  </div>
+  </section>
 </ion-content>

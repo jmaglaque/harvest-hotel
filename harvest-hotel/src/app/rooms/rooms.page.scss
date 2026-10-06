@@ -1,233 +1,596 @@
-ion-toolbar {
-  --background: #0c3b2b;
-  --min-height: 75px;
-}
-
-.book-now-btn {
-  --background: #b68511;
-  --color: #0c3b2b;
-  font-weight: 700;
-}
-
-/* Center the logo in the toolbar even with buttons on the left/right */
-ion-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+/* Rooms Page Luxury Styles */
+.luxury-header {
+  position: sticky;
   top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  .header-toolbar {
+    --background: rgba(12, 59, 43, 0.96);
+    --min-height: 72px;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 155, 60, 0.25);
+    padding: 0 12px;
+  }
+
+  .custom-menu-btn {
+    color: #ffffff;
+    --color: #ffffff;
+  }
+
+  .header-logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    top: 0;
+    height: 100%;
+
+    .logo {
+      pointer-events: auto;
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    }
+  }
 }
 
-ion-title img {
-  pointer-events: auto;
-  height: 75px;
+.rooms-page-content {
+  --background: #faf9f5;
 }
 
-ion-toolbar ion-menu-button {
-  color: #ffffff;
-}
-
-h2 {
-  color: #0c3b2b;
-  font-family: 'Times New Roman', Times, serif;
-  margin: 0;
-  font-size: 40px;
-}
-
-.rooms-header p {
-  margin: 15px auto;
-}
-
-.rooms-header {
+/* Header Banner */
+.rooms-header-banner {
+  padding: 44px 20px 24px;
   text-align: center;
-  margin-top: 20px;
-  padding: 20px;
-  max-width: 700px;
+  max-width: 860px;
   margin: 0 auto;
+
+  .category-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #ad822b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .rooms-page-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0c3b2b;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+
+    @media (min-width: 768px) {
+      font-size: 2.8rem;
+    }
+  }
+
+  .title-gold-bar {
+    width: 60px;
+    height: 3px;
+    background: var(--gold-gradient);
+    margin: 0 auto 18px;
+    border-radius: 9999px;
+  }
+
+  .rooms-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #525d57;
+    margin: 0;
+  }
 }
 
+/* Rooms Grid */
 .rooms-container {
-  padding: 20px;
   display: grid;
-  gap: 5px;
-  max-width: 800px;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding: 20px 20px 60px;
+  max-width: 1100px;
   margin: 0 auto;
-}
 
-@media (min-width: 640px) {
-  .rooms-container {
+  @media (min-width: 680px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
 }
 
-ion-card {
-  padding: 25px;
-  border-radius: 15px;
-  text-align: center;
-}
+/* Room Card */
+.luxury-room-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(12, 59, 43, 0.08);
+  box-shadow: 0 8px 24px -4px rgba(12, 59, 43, 0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-ion-card img {
-  border-radius: 15px;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 36px -8px rgba(12, 59, 43, 0.14);
+    border-color: rgba(200, 155, 60, 0.35);
 
-ion-card-header {
-  padding: 10px;
-}
+    .card-media img {
+      transform: scale(1.06);
+    }
+  }
 
-ion-card-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 0;
-}
+  .card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: #1a2721;
 
-ion-card-subtitle {
-  font-size: 20px;
-  color: #555;
-  margin-top: 5px;
-}
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
 
-ion-modal ion-toolbar {
-  --background: #fff;
-  --min-height: 75px;
-}
+    .price-pill-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(9, 44, 32, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(223, 183, 67, 0.4);
+      color: #dfb743;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
-ion-modal ion-toolbar ion-button {
-  text-transform: none;
-  --border-radius: 10px;
-}
+      .price-currency {
+        font-size: 0.8rem;
+        margin-right: 1px;
+      }
 
-ion-modal img {
-  width: 100%;
-  border-radius: 10px;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
+      .price-period {
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.75);
+      }
+    }
+  }
 
-ion-modal div#basic-info h3 {
-  font-weight: 800;
-  font-size: 28px;
-}
+  .card-content-wrap {
+    padding: 22px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 
-ion-modal div#basic-info p {
-  text-align: center;
-}
+    .room-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0c3b2b;
+      margin: 0 0 14px;
+      line-height: 1.3;
+    }
 
-ion-modal section {
-  border-top: 3px solid #ddd;
-  margin-top: 30px;
-  padding: 0 20px;
-}
+    .room-quick-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
 
-ion-modal section#details > div {
-  display: grid;
-  gap: 10px;
-}
+      .spec-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f4f3ef;
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-size: 0.74rem;
+        color: #49544f;
+        font-weight: 500;
 
-@media (min-width: 640px) {
-  ion-modal section#details > div {
-    grid-template-columns: 1fr 1fr 1fr;
+        ion-icon {
+          color: #ad822b;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .card-actions-row {
+      margin-top: auto;
+
+      .view-details-btn {
+        --background: #0c3b2b;
+        --color: #ffffff;
+        --border-radius: 9999px;
+        width: 100%;
+        margin: 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: none;
+        transition: all 0.25s ease;
+
+        ion-icon {
+          font-size: 1rem;
+          margin-right: 6px;
+        }
+
+        &:hover {
+          --background: #14553d;
+          box-shadow: 0 4px 14px rgba(12, 59, 43, 0.25);
+        }
+      }
+    }
   }
 }
 
-ion-modal section#details > div > div {
-  background-color: #f3f3f3;
-  padding: 10px;
-  border-radius: 5px;
+/* Modal Luxury Styling */
+.luxury-room-modal {
+  --width: 960px;
+  --max-width: 92vw;
+  --height: 88vh;
+  --max-height: 860px;
+  --border-radius: 22px;
+  --box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 768px) {
+    --width: 100% !important;
+    --height: 100% !important;
+    --max-width: 100% !important;
+    --max-height: 100% !important;
+    --border-radius: 0 !important;
+  }
+
+  .modal-toolbar {
+    --background: #0c3b2b;
+    --color: #ffffff;
+    --min-height: 64px;
+    border-bottom: 1px solid rgba(200, 155, 60, 0.2);
+
+    .modal-back-btn {
+      --color: #dfb743;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: none;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+  }
+
+  .modal-content-body {
+    --background: #faf9f5;
+  }
+
+  .modal-body-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 24px 44px;
+  }
+
+  .modal-hero-block {
+    .modal-img-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      margin-bottom: 20px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-price-tag {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        background: rgba(9, 44, 32, 0.92);
+        backdrop-filter: blur(8px);
+        color: #dfb743;
+        border: 1px solid rgba(223, 183, 67, 0.4);
+        padding: 6px 16px;
+        border-radius: 9999px;
+        font-weight: 700;
+        font-size: 1.1rem;
+
+        span {
+          font-size: 0.76rem;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+
+    .modal-room-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0c3b2b;
+      margin: 0 0 10px;
+    }
+
+    .modal-room-desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #525d57;
+      margin: 0;
+    }
+  }
+
+  .modal-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #ebe8df;
+
+    .section-heading-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+
+      .heading-gold-accent {
+        width: 4px;
+        height: 20px;
+        background: var(--gold-gradient);
+        border-radius: 2px;
+      }
+
+      h4 {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #0c3b2b;
+      }
+    }
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .spec-box {
+      background: #ffffff;
+      border: 1px solid #ebe8df;
+      padding: 14px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+      .spec-box-icon {
+        font-size: 1.6rem;
+        color: #ad822b;
+        flex-shrink: 0;
+      }
+
+      .spec-box-meta {
+        ion-label {
+          display: block;
+          color: #79837e;
+          font-size: 0.72rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+
+        p {
+          margin: 2px 0 0;
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: #122c22;
+        }
+      }
+    }
+  }
+
+  .features-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #eeebe2;
+
+      .feature-check {
+        color: #1b8a5a;
+        font-size: 1.15rem;
+        flex-shrink: 0;
+      }
+
+      ion-label {
+        font-size: 0.88rem;
+        color: #38423d;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .luxury-segment {
+    margin-bottom: 20px;
+    background: #ebe8df;
+    border-radius: 12px;
+    padding: 3px;
+
+    ion-segment-button {
+      --indicator-color: #0c3b2b;
+      --color: #55625c;
+      --color-checked: #ffffff;
+      font-weight: 600;
+      border-radius: 10px;
+      min-height: 40px;
+    }
+  }
+
+  .review-tab-content {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #ebe8df;
+    padding: 18px;
+
+    .empty-reviews-state {
+      text-align: center;
+      padding: 24px 12px;
+      color: #79837e;
+      font-size: 0.9rem;
+    }
+
+    .review-card {
+      border-bottom: 1px solid #f1eee6;
+      padding: 14px 0;
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .review-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 6px;
+
+        .reviewer-name {
+          color: #0c3b2b;
+          font-size: 0.95rem;
+        }
+
+        .review-date {
+          font-size: 0.72rem;
+          color: #8c9791;
+        }
+
+        .review-stars {
+          color: #dfb743;
+          font-size: 1.05rem;
+          letter-spacing: 2px;
+        }
+      }
+
+      .review-body {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        color: #49544f;
+      }
+
+      .review-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        margin-top: 6px;
+      }
+    }
+
+    .form-item {
+      --background: #f8f7f2;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      border: 1px solid #e5e2d8;
+
+      ion-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #0c3b2b;
+      }
+    }
+
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 0 16px;
+
+      .rating-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #0c3b2b;
+      }
+
+      .rating-stars {
+        display: flex;
+        gap: 6px;
+
+        .star {
+          background: transparent;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #d1ccbe;
+          transition: transform 0.15s ease, color 0.15s ease;
+
+          &:hover, &.active {
+            color: #dfb743;
+            transform: scale(1.15);
+          }
+        }
+      }
+    }
+
+    .submit-review-btn {
+      --background: #0c3b2b;
+      --color: #ffffff;
+      --border-radius: 10px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  }
+
+  .modal-footer-cta {
+    margin-top: 28px;
+
+    .modal-reserve-btn {
+      --background: var(--gold-gradient);
+      --color: #0c3b2b;
+      --border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: var(--gold-glow);
+      min-height: 48px;
+
+      &:hover {
+        --background: var(--gold-gradient-hover);
+        box-shadow: 0 6px 22px rgba(200, 155, 60, 0.5);
+      }
+    }
+  }
 }
 
-ion-modal section#details > div > div > ion-label {
-  color: #7a7a7a;
-  font-size: 14px;
-}
-
-ion-modal section#details > div > div > p {
-  font-weight: 700;
-  font-size: 24px;
-}
-
-ion-modal h4 {
-  margin-bottom: 10px;
-}
-
-ion-modal .features-list {
-  display: grid;
-  gap: 10px;
-  margin: 0 auto;
-  margin-top: 10px;
-  grid-template-columns: 1fr 1fr;
-  max-width: 500px;
-}
-
-ion-modal .features-list > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Reviews tab styles */
-.review-card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 12px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-  margin-bottom: 12px;
-  border: 1px solid #e0e0e0;
-}
-.review-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.review-date {
-  font-size: 12px;
-  color: #777;
-}
-.review-stars {
-  color: #ffcc00;
-  font-size: 16px;
-}
-.review-body {
-  margin-top: 8px;
-  color: #333;
-}
-.review-actions {
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:8px;
-}
-
-.rating-row {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 0;
-}
-.rating-label { min-width: 60px; }
-.rating-stars .star {
-  background: transparent;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #bbb;
-}
-.rating-stars .star.active { color: #ffcc00; }
-
-#bookBtn {
-  --background: #b68511;
-}
-
-ion-modal ion-item {
-  --padding-start: 0;
-}
-
-ion-modal ion-item ion-label {
-  font-size: 20px;
-}

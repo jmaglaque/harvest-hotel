@@ -1,83 +1,130 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="events-header">
-    <h2>EVENT PACKAGES</h2>
-    <p>Perfect venue for your special moments</p>
+<ion-content class="events-page-content">
+  <div class="events-header-banner">
+    <div class="events-header-inner">
+      <div class="category-badge">CELEBRATIONS &bull; RECEPTIONS &bull; CONFERENCES</div>
+      <h2 class="events-page-title">EVENT PACKAGES</h2>
+      <div class="title-gold-bar"></div>
+      <p class="events-subtitle">Perfect venue for your special moments</p>
+    </div>
   </div>
 
-  <ion-modal #eventModal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+  <ion-modal #eventModal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="luxury-event-modal">
     <ng-template>
-      <div class="ion-padding menu-modal-header">
-        <h3>Event Menu</h3>
-        <p>Choose your preferred dishes for your event</p>
-        <p class="menu-desc">{{ formatChoiceOf(selectedRoom?.menu?.choiceOf) }}</p>
-      </div>
-      <ion-content class="ion-padding menu-modal">
-        <div *ngIf="selectedRoom?.menu">
+      <ion-header class="ion-no-border modal-header">
+        <ion-toolbar class="modal-toolbar">
+          <ion-buttons slot="start">
+            <ion-button (click)="eventModal.dismiss(); closeModal()" aria-label="Close" class="modal-back-btn">
+              <ion-icon slot="start" name="arrow-back"></ion-icon>
+              Back to Packages
+            </ion-button>
+          </ion-buttons>
+          <ion-title class="modal-title">Event Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-          <div class="menu-grid">
-            <div *ngFor="let c of selectedRoom.menu.category" class="menu-col">
-              <h5 class="menu-col-label">{{ c.label }}</h5>
-              <ul>
+      <ion-content class="modal-content-body">
+        <div class="modal-body-container">
+          <div class="menu-modal-intro">
+            <div class="intro-badge">CAF&Eacute; ECIJA CATERING</div>
+            <h3 class="intro-title">{{ selectedRoom?.title }} Menu</h3>
+            <p class="intro-desc">Choose your preferred dishes for your event</p>
+            <div class="choice-tag" *ngIf="selectedRoom?.menu?.choiceOf">
+              <span>Selection:</span> {{ formatChoiceOf(selectedRoom?.menu?.choiceOf) }}
+            </div>
+          </div>
+
+          <div *ngIf="selectedRoom?.menu" class="menu-categories-grid">
+            <div *ngFor="let c of selectedRoom.menu.category" class="menu-category-card">
+              <div class="category-card-header">
+                <ion-icon name="restaurant-outline" class="dish-icon"></ion-icon>
+                <h5 class="menu-col-label">{{ c.label }}</h5>
+              </div>
+              <ul class="dish-list">
                 <li *ngFor="let it of c.items">{{ it }}</li>
               </ul>
             </div>
           </div>
 
-          <div class="menu-actions">
-            <ion-button color="primary" expand="full" (click)="eventModal.dismiss(); closeModal()">Okay</ion-button>
+          <div class="menu-actions-wrap">
+            <ion-button class="modal-ok-btn" expand="block" (click)="eventModal.dismiss(); closeModal()">
+              Close Menu
+            </ion-button>
           </div>
         </div>
       </ion-content>
     </ng-template>
   </ion-modal>
+
   <div class="events-container">
     @for (e of events; track e; let i = $index) {
-      <ion-card>
-        <img alt="Image of {{ e.title }}" src="assets/img/events/{{ e.image }}" />
-        <ion-card-header>
-          <ion-card-title>{{ e.title }}</ion-card-title>
-        </ion-card-header>
-        <div>
-          <section class="event-inclusions">
-            <h4>Inclusions</h4>
-            <ul>
-              @for (inclusion of e.inclusions; track inclusion; let j = $index) {
-                <li>{{ inclusion }}</li>
-              }
-            </ul>
-          </section>
-          <section class="rates-inclusions">
-            <h4>Rates</h4>
-            <div>
-              @for (rate of e.rates; track rate; let k = $index) {
-                <div>
-                  <p>{{ rate.pax }}</p>
-                  <p>₱{{ formatPrice(rate.price) }}</p>
-                </div>
-              }
-            </div>
-            <section>
-              ₱{{ formatPrice(e.extraPaxPrice) }} per person in excess
-            </section>
-          </section>
+      <div class="luxury-event-card">
+        <div class="event-media">
+          <img alt="Image of {{ e.title }}" src="assets/img/events/{{ e.image }}" loading="lazy" />
+          <div class="event-media-gradient"></div>
         </div>
 
-        <div class="event-actions">
-          <ion-button color="dark" (click)="openDetails(e)">View Menu</ion-button>
-          <ion-button color="primary" (click)="bookNow(e)">Book Now</ion-button>
+        <div class="event-body">
+          <h3 class="event-card-title">{{ e.title }}</h3>
+
+          <div class="event-details-split">
+            <!-- Inclusions Column -->
+            <section class="event-inclusions-col">
+              <div class="sub-heading-wrap">
+                <ion-icon name="sparkles-outline" class="sub-icon"></ion-icon>
+                <h4>Inclusions</h4>
+              </div>
+              <ul class="inclusions-list">
+                @for (inclusion of e.inclusions; track inclusion; let j = $index) {
+                  <li>
+                    <ion-icon name="checkmark-circle-outline" class="check-icon"></ion-icon>
+                    <span>{{ inclusion }}</span>
+                  </li>
+                }
+              </ul>
+            </section>
+
+            <!-- Rates Column -->
+            <section class="event-rates-col">
+              <div class="sub-heading-wrap">
+                <ion-icon name="calendar" class="sub-icon"></ion-icon>
+                <h4>Packages &amp; Rates</h4>
+              </div>
+              <div class="rates-table">
+                @for (rate of e.rates; track rate; let k = $index) {
+                  <div class="rate-row">
+                    <span class="rate-pax">{{ rate.pax }}</span>
+                    <strong class="rate-price">₱{{ formatPrice(rate.price) }}</strong>
+                  </div>
+                }
+              </div>
+              <div class="extra-pax-notice">
+                <span>Extra guest:</span> <strong>₱{{ formatPrice(e.extraPaxPrice) }}</strong> per person in excess
+              </div>
+            </section>
+          </div>
+
+          <div class="event-actions-bar">
+            <ion-button fill="outline" class="view-menu-btn" (click)="openDetails(e)">
+              <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+              <span>View Menu</span>
+            </ion-button>
+            <ion-button class="book-package-btn" (click)="bookNow(e)">
+              <span>Book This Package</span>
+            </ion-button>
+          </div>
         </div>
-      </ion-card>
+      </div>
     }
   </div>
 </ion-content>

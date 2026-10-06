@@ -1,19 +1,20 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding history-page">
-  <h2 class="page-title">Booking History</h2>
-  <p class="subtitle">View and manage all your reservations</p>
+<ion-content class="history-page">
+  <div class="history-container">
+    <h2 class="page-title">Booking History</h2>
+    <p class="subtitle">View and manage all your reservations</p>
 
-  <ion-segment value="room">
+    <ion-segment value="room">
       <ion-segment-button value="room" content-id="room">
         <ion-label>Room</ion-label>
       </ion-segment-button>
@@ -81,19 +82,20 @@
         </div>
       </ion-segment-content>
     </ion-segment-view>
+  </div>
 
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="luxury-history-modal">
     <ng-template>
-      <ion-header>
-        <ion-toolbar>
+      <ion-header class="ion-no-border">
+        <ion-toolbar class="modal-toolbar">
           <ion-title class="modal-title">Full Booking Details</ion-title>
           <ion-buttons slot="end">
-            <ion-button fill="clear" (click)="closeModal()">✕</ion-button>
+            <ion-button fill="clear" (click)="closeModal()" class="modal-close-icon-btn">✕</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding booking-details-modal">
-        <div *ngIf="selectedBooking">
+      <ion-content class="modal-content-body">
+        <div class="booking-details-container" *ngIf="selectedBooking">
           <!-- Event booking layout -->
           <div *ngIf="(selectedBooking.type || '').toString().toLowerCase() === 'event'; else roomDetails">
             <section class="section">

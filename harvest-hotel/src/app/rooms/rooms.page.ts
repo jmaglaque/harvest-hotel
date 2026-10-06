@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonMenuButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonModal, IonIcon, IonList, IonItem, IonLabel, IonTabs, IonTab, IonTabButton, IonTabBar, IonSegment, IonSegmentButton, IonInput, IonTextarea } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle, image } from 'ionicons/icons';
+import { arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle, image, bedOutline, peopleOutline, scanOutline, eyeOutline } from 'ionicons/icons';
 import { ReviewApiService } from '../services/review-api.service';
 import { Router } from '@angular/router';
 
@@ -155,7 +155,7 @@ export class RoomsPage implements OnInit {
   public submitting = false;
 
   constructor(private reviewApi: ReviewApiService, private router: Router) {
-    addIcons({arrowBack,checkmarkCircleOutline,calendar,personCircle,map,informationCircle});
+    addIcons({ arrowBack, checkmarkCircleOutline, calendar, personCircle, map, informationCircle, bedOutline, peopleOutline, scanOutline, eyeOutline });
   }
 
   ngOnInit() {

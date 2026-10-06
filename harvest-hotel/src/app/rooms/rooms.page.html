@@ -1,144 +1,210 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="rooms-header">
-    <h2>OUR ROOMS</h2>
-    <p>Discover comfort in our thoughtfully designed rooms, where modern Filipino elegance creates your perfect Cavan of Joy. Our 83 fully furnished accommodations blend contemporary style with homey touches, perfect for family getaways or business stays in our family hotel in Nueva Ecija. Each room offers a warm, welcoming atmosphere that makes every moment of your stay truly memorable.</p>
+<ion-content class="rooms-page-content">
+  <div class="rooms-header-banner">
+    <div class="rooms-header-inner">
+      <div class="category-badge">ELEGANT LIVING &bull; NUEVA ECIJA</div>
+      <h2 class="rooms-page-title">OUR ROOMS</h2>
+      <div class="title-gold-bar"></div>
+      <p class="rooms-subtitle">Discover comfort in our thoughtfully designed rooms, where modern Filipino elegance creates your perfect Cavan of Joy. Our 83 fully furnished accommodations blend contemporary style with homey touches, perfect for family getaways or business stays in our family hotel in Nueva Ecija. Each room offers a warm, welcoming atmosphere that makes every moment of your stay truly memorable.</p>
+    </div>
   </div>
+
   <div class="rooms-container">
     @for (r of rooms; track r; let i = $index) {
-      <ion-card>
-        <img alt="Image of {{ r.title }}" src="assets/img/rooms/{{ r.image }}" />
-        <ion-card-header>
-          <ion-card-title>{{ r.title }}</ion-card-title>
-          <ion-card-subtitle>₱{{ formatPrice(r.price) }} / night</ion-card-subtitle>
-        </ion-card-header>
+      <div class="luxury-room-card">
+        <div class="card-media">
+          <img alt="Image of {{ r.title }}" src="assets/img/rooms/{{ r.image }}" loading="lazy" />
+          <div class="price-pill-badge">
+            <span class="price-currency">₱</span>{{ formatPrice(r.price) }} <span class="price-period">/ night</span>
+          </div>
+        </div>
 
-        <ion-button color="secondary" (click)="openDetails(r)">View Details</ion-button>
-      </ion-card>
+        <div class="card-content-wrap">
+          <h3 class="room-card-title">{{ r.title }}</h3>
+
+          <div class="room-quick-specs">
+            <div class="spec-chip">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>{{ r.capacity }}</span>
+            </div>
+            <div class="spec-chip">
+              <ion-icon name="scan-outline"></ion-icon>
+              <span>{{ r.sqm }} m²</span>
+            </div>
+            <div class="spec-chip">
+              <ion-icon name="bed-outline"></ion-icon>
+              <span>{{ r.bedConfig }}</span>
+            </div>
+          </div>
+
+          <div class="card-actions-row">
+            <ion-button class="view-details-btn" (click)="openDetails(r)">
+              <ion-icon name="eye-outline" slot="start"></ion-icon>
+              <span>View Details</span>
+            </ion-button>
+          </div>
+        </div>
+      </div>
     }
   </div>
 
   <!-- Declarative modal for room details -->
-  <ion-modal #roomModal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+  <ion-modal #roomModal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="luxury-room-modal">
     <ng-template>
-      <ion-header>
-        <ion-toolbar>
+      <ion-header class="ion-no-border modal-header">
+        <ion-toolbar class="modal-toolbar">
           <ion-buttons slot="start">
-            <ion-button (click)="roomModal.dismiss(); closeModal()" aria-label="Close" fill="solid" color="primary">
+            <ion-button (click)="roomModal.dismiss(); closeModal()" aria-label="Close" class="modal-back-btn">
               <ion-icon slot="start" name="arrow-back"></ion-icon>
               Back to Rooms
             </ion-button>
           </ion-buttons>
+          <ion-title class="modal-title">{{ selectedRoom?.title }}</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      <ion-content class="ion-padding">
-        <div id="basic-info">
-          <h3>{{ selectedRoom?.title }}</h3>
-          <img src="assets/img/rooms/{{ selectedRoom?.image }}" alt="{{ selectedRoom?.title }}" />
-          <p>{{ selectedRoom?.description }}</p>
-        </div>
-
-        <section id="details">
-          <h4>Room Details</h4>
-          <div>
-            <div>
-              <ion-label>Room Size</ion-label>
-              <p slot="end">{{ selectedRoom?.sqm }} sqm</p>
-            </div>
-            <div>
-              <ion-label>Room Capacity</ion-label>
-              <p slot="end">{{ selectedRoom?.capacity }}</p>
-            </div>
-            <div>
-              <ion-label>Bed Configuration</ion-label>
-              <p slot="end">{{ selectedRoom?.bedConfig }}</p>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h4>Room Features</h4>
-          <div class="features-list">
-            @for (feature of selectedRoom?.features; track feature; let j = $index) {
-              <div>
-                <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
-                <ion-label>{{ feature }}</ion-label>
+      <ion-content class="modal-content-body">
+        <div class="modal-body-container">
+          <div id="basic-info" class="modal-hero-block">
+            <div class="modal-img-wrap">
+              <img src="assets/img/rooms/{{ selectedRoom?.image }}" alt="{{ selectedRoom?.title }}" />
+              <div class="modal-price-tag">
+                ₱{{ formatPrice(selectedRoom?.price) }} <span>/ night</span>
               </div>
-            }
+            </div>
+            <h3 class="modal-room-title">{{ selectedRoom?.title }}</h3>
+            <p class="modal-room-desc">{{ selectedRoom?.description }}</p>
           </div>
-        </section>
-        <section>
-          <h4>Guest Reviews</h4>
-          <ion-segment value="read" (ionChange)="setReviewTab($event.detail.value)">
-          <ion-segment-button value="read">
-            Read Reviews
-          </ion-segment-button>
-          <ion-segment-button value="write">
-            Write a Review
-          </ion-segment-button>
-        </ion-segment>
 
-        <div style="padding:12px">
-          <div *ngIf="reviewTab === 'read'">
-            <div *ngIf="reviews.length === 0">No reviews yet.</div>
-            <div *ngFor="let r of reviews" class="review-card">
-              <div class="review-head">
-                <div>
-                  <strong>{{ r.name }}</strong>
-                  <div class="review-date">{{ r.date }}</div>
+          <section id="details" class="modal-section">
+            <div class="section-heading-wrap">
+              <div class="heading-gold-accent"></div>
+              <h4>Room Details</h4>
+            </div>
+            <div class="specs-grid">
+              <div class="spec-box">
+                <ion-icon name="scan-outline" class="spec-box-icon"></ion-icon>
+                <div class="spec-box-meta">
+                  <ion-label>Room Size</ion-label>
+                  <p>{{ selectedRoom?.sqm }} sqm</p>
                 </div>
-                <div class="review-stars">{{ '★'.repeat(r.rating) }}{{ '☆'.repeat(5 - r.rating) }}</div>
               </div>
-              <div class="review-body">{{ r.comment }}</div>
-              <div class="review-actions">
-                <ion-button size="small" fill="clear" (click)="editReview(r)">Edit</ion-button>
-                <ion-button size="small" fill="clear" color="danger" (click)="deleteReview(r.id)">Delete</ion-button>
+              <div class="spec-box">
+                <ion-icon name="people-outline" class="spec-box-icon"></ion-icon>
+                <div class="spec-box-meta">
+                  <ion-label>Room Capacity</ion-label>
+                  <p>{{ selectedRoom?.capacity }}</p>
+                </div>
+              </div>
+              <div class="spec-box">
+                <ion-icon name="bed-outline" class="spec-box-icon"></ion-icon>
+                <div class="spec-box-meta">
+                  <ion-label>Bed Configuration</ion-label>
+                  <p>{{ selectedRoom?.bedConfig }}</p>
+                </div>
               </div>
             </div>
+          </section>
+
+          <section class="modal-section">
+            <div class="section-heading-wrap">
+              <div class="heading-gold-accent"></div>
+              <h4>Room Features</h4>
+            </div>
+            <div class="features-list">
+              @for (feature of selectedRoom?.features; track feature; let j = $index) {
+                <div class="feature-item">
+                  <ion-icon name="checkmark-circle-outline" class="feature-check"></ion-icon>
+                  <ion-label>{{ feature }}</ion-label>
+                </div>
+              }
+            </div>
+          </section>
+
+          <section class="modal-section reviews-section">
+            <div class="section-heading-wrap">
+              <div class="heading-gold-accent"></div>
+              <h4>Guest Reviews</h4>
+            </div>
+            <ion-segment value="read" (ionChange)="setReviewTab($event.detail.value)" class="luxury-segment">
+              <ion-segment-button value="read">
+                <ion-label>Read Reviews</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="write">
+                <ion-label>Write a Review</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+
+            <div class="review-tab-content">
+              <div *ngIf="reviewTab === 'read'">
+                <div *ngIf="reviews.length === 0" class="empty-reviews-state">
+                  <p>No reviews yet for this room. Be the first to share your experience!</p>
+                </div>
+                <div *ngFor="let r of reviews" class="review-card">
+                  <div class="review-head">
+                    <div class="reviewer-meta">
+                      <strong class="reviewer-name">{{ r.name }}</strong>
+                      <div class="review-date">{{ r.date }}</div>
+                    </div>
+                    <div class="review-stars">{{ '★'.repeat(r.rating) }}{{ '☆'.repeat(5 - r.rating) }}</div>
+                  </div>
+                  <div class="review-body">{{ r.comment }}</div>
+                  <div class="review-actions">
+                    <ion-button size="small" fill="clear" (click)="editReview(r)">Edit</ion-button>
+                    <ion-button size="small" fill="clear" color="danger" (click)="deleteReview(r.id)">Delete</ion-button>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="reviewTab === 'write'" class="write-review-form">
+                <ion-item class="form-item" lines="none">
+                  <ion-label position="stacked">Your Name</ion-label>
+                  <ion-input [(ngModel)]="reviewForm.name" placeholder="Enter your full name"></ion-input>
+                </ion-item>
+
+                <div class="rating-row">
+                  <div class="rating-label">Rating</div>
+                  <div class="rating-stars">
+                    <button type="button" class="star" [class.active]="reviewForm.rating >= 1" (click)="setRating(1)">★</button>
+                    <button type="button" class="star" [class.active]="reviewForm.rating >= 2" (click)="setRating(2)">★</button>
+                    <button type="button" class="star" [class.active]="reviewForm.rating >= 3" (click)="setRating(3)">★</button>
+                    <button type="button" class="star" [class.active]="reviewForm.rating >= 4" (click)="setRating(4)">★</button>
+                    <button type="button" class="star" [class.active]="reviewForm.rating >= 5" (click)="setRating(5)">★</button>
+                  </div>
+                </div>
+
+                <ion-item class="form-item" lines="none">
+                  <ion-label position="stacked">Your Comment</ion-label>
+                  <ion-textarea [(ngModel)]="reviewForm.comment" placeholder="Tell us about your stay..."></ion-textarea>
+                </ion-item>
+
+                <div class="review-form-actions">
+                  <ion-button expand="block" class="submit-review-btn" (click)="submitReview()" [disabled]="submitting || !reviewForm.name || reviewForm.rating <= 0 || !reviewForm.comment">
+                    {{ editingReview ? 'Update Review' : 'Submit Review' }}
+                  </ion-button>
+                  <ion-button *ngIf="editingReview" expand="block" fill="outline" color="medium" (click)="cancelEdit()">
+                    Cancel
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="modal-footer-cta">
+            <ion-button id="bookBtn" expand="block" (click)="roomModal.dismiss(); bookNow()" class="modal-reserve-btn">
+              <span>Book This Room</span>
+            </ion-button>
           </div>
-
-          <div *ngIf="reviewTab === 'write'">
-            <ion-item>
-              <ion-label position="stacked">Your Name</ion-label>
-              <ion-input [(ngModel)]="reviewForm.name" placeholder="Enter your name"></ion-input>
-            </ion-item>
-
-            <div class="rating-row">
-              <div class="rating-label">Rating</div>
-              <div class="rating-stars">
-                <button type="button" class="star" [class.active]="reviewForm.rating >= 1" (click)="setRating(1)">☆</button>
-                <button type="button" class="star" [class.active]="reviewForm.rating >= 2" (click)="setRating(2)">☆</button>
-                <button type="button" class="star" [class.active]="reviewForm.rating >= 3" (click)="setRating(3)">☆</button>
-                <button type="button" class="star" [class.active]="reviewForm.rating >= 4" (click)="setRating(4)">☆</button>
-                <button type="button" class="star" [class.active]="reviewForm.rating >= 5" (click)="setRating(5)">☆</button>
-              </div>
-            </div>
-
-            <ion-item>
-              <ion-label position="stacked">Your Comment</ion-label>
-              <ion-textarea [(ngModel)]="reviewForm.comment" placeholder="Type your comment"></ion-textarea>
-            </ion-item>
-
-            <div style="padding:16px; text-align:center">
-              <ion-button expand="block" color="primary" (click)="submitReview()" [disabled]="submitting || !reviewForm.name || reviewForm.rating <= 0 || !reviewForm.comment">{{ editingReview ? 'Update Review' : 'Submit Review' }}</ion-button>
-              <ion-button *ngIf="editingReview" expand="block" fill="outline" color="medium" (click)="cancelEdit()">Cancel</ion-button>
-            </div>
-          </div>
-        </div>
-        </section>
-
-        <div style="padding:16px; text-align:center">
-          <ion-button id="bookBtn" expand="block" (click)="roomModal.dismiss(); bookNow()">Book Now</ion-button>
         </div>
       </ion-content>
     </ng-template>

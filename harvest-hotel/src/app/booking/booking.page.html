@@ -1,104 +1,160 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-      <ion-button (click)="cancel()" fill="clear" color="light" aria-label="Back to Rooms">
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
+      <ion-button (click)="cancel()" fill="clear" class="header-back-btn" aria-label="Back to Rooms">
         <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>{{ room?.title }}</h2>
-  <p *ngIf="room?.price">Rate per night: ₱{{ room.price }}</p>
+<ion-content class="booking-page-content">
+  <div class="booking-page-container">
+    <!-- Header Hero Card for Selected Room -->
+    <div class="booking-room-hero">
+      <div class="hero-text-side">
+        <div class="res-badge">CONFIRM YOUR RESERVATION</div>
+        <h2 class="booked-room-title">{{ room?.title }}</h2>
+        <div class="rate-badge" *ngIf="room?.price">
+          <span>Rate per night:</span> <strong>₱{{ room.price }}</strong>
+        </div>
+      </div>
+    </div>
 
-  <h3>Personal Information</h3>
-  <section>
-    <ion-input fill="outline" label="Full Name" label-placement="stacked" [(ngModel)]="form.fullName"></ion-input>
-    <ion-input fill="outline" label="Email Address" label-placement="stacked"  [(ngModel)]="form.email"></ion-input>
-    <ion-input  fill="outline" label="Contact Number" label-placement="stacked" [(ngModel)]="form.contact"></ion-input>
-  </section>
+    <!-- Booking Form Sections -->
+    <div class="form-cards-layout">
+      <!-- Personal Information Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">1</div>
+          <div class="step-meta">
+            <h3>Personal Information</h3>
+            <p>Please enter guest contact details</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-input fill="outline" label="Full Name" label-placement="stacked" placeholder="e.g. Maria Santos" [(ngModel)]="form.fullName" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Email Address" label-placement="stacked" type="email" placeholder="e.g. maria@example.com" [(ngModel)]="form.email" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Contact Number" label-placement="stacked" type="tel" placeholder="e.g. 0917 123 4567" [(ngModel)]="form.contact" class="custom-luxury-input"></ion-input>
+        </div>
+      </div>
 
-  <h3>Booking Details</h3>
-  <section>
-    <ion-input fill="outline" label="Adults" label-placement="stacked" type="number" [(ngModel)]="form.adults"></ion-input>
-    <ion-input fill="outline" label="Children" label-placement="stacked" type="number" [(ngModel)]="form.children"></ion-input>
-    <ion-input fill="outline" label="Number of rooms" label-placement="stacked" type="number" [(ngModel)]="form.rooms"></ion-input>
-    <ion-input fill="outline" label="Check-in Date" label-placement="stacked" type="date" [(ngModel)]="form.checkInDate"></ion-input>
-    <!-- Fixed check-in time (2:00 PM) -->
-    <ion-input fill="outline" label="Check-in Time" label-placement="stacked" type="time" [(ngModel)]="form.checkInTime" disabled></ion-input>
-    <ion-input fill="outline" label="Check-out Date" label-placement="stacked" type="date" [(ngModel)]="form.checkOutDate"></ion-input>
-    <!-- Fixed check-out time (12:00 PM) -->
-    <ion-input fill="outline" label="Check-out Time" label-placement="stacked" type="time" [(ngModel)]="form.checkOutTime" disabled></ion-input>
-    <ion-textarea fill="outline" label="Booking Notes" label-placement="stacked" type="time" [(ngModel)]="form.notes" placeholder="Optional" id="notes"></ion-textarea>
-  </section>
+      <!-- Booking Details Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">2</div>
+          <div class="step-meta">
+            <h3>Booking Details</h3>
+            <p>Dates, guest count, and stay preferences</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-input fill="outline" label="Adults" label-placement="stacked" type="number" [(ngModel)]="form.adults" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Children" label-placement="stacked" type="number" [(ngModel)]="form.children" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Number of rooms" label-placement="stacked" type="number" [(ngModel)]="form.rooms" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Check-in Date" label-placement="stacked" type="date" [(ngModel)]="form.checkInDate" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Check-in Time" label-placement="stacked" type="time" [(ngModel)]="form.checkInTime" disabled class="custom-luxury-input disabled-input"></ion-input>
+          <ion-input fill="outline" label="Check-out Date" label-placement="stacked" type="date" [(ngModel)]="form.checkOutDate" class="custom-luxury-input"></ion-input>
+          <ion-input fill="outline" label="Check-out Time" label-placement="stacked" type="time" [(ngModel)]="form.checkOutTime" disabled class="custom-luxury-input disabled-input"></ion-input>
+          <ion-textarea fill="outline" label="Booking Notes" label-placement="stacked" [(ngModel)]="form.notes" placeholder="Any special requests or arrival notes (optional)" id="notes" class="custom-luxury-input full-span"></ion-textarea>
+        </div>
+      </div>
 
-  <h3>Payment Information</h3>
-  <section>
-    <ion-select fill="outline" label="Payment Method" label-placement="stacked" [(ngModel)]="form.paymentMethod">
-      <ion-select-option value="Gcash">GCash</ion-select-option>
-      <ion-select-option value="Card">Debit/Credit Card</ion-select-option>
-      <ion-select-option value="Maya">Maya</ion-select-option>
-    </ion-select>
-    <ion-select fill="outline" label="Payment Type" label-placement="stacked" [(ngModel)]="form.paymentType">
-      <ion-select-option value="partial">Partial Payment (20% of total)</ion-select-option>
-      <ion-select-option value="full">Full Payment (100% of total)</ion-select-option>
-    </ion-select>
-  </section>
+      <!-- Payment Information Card -->
+      <div class="luxury-form-card">
+        <div class="form-card-header">
+          <div class="step-circle">3</div>
+          <div class="step-meta">
+            <h3>Payment Information</h3>
+            <p>Choose your preferred payment method &amp; deposit option</p>
+          </div>
+        </div>
+        <div class="form-inputs-grid">
+          <ion-select fill="outline" label="Payment Method" label-placement="stacked" [(ngModel)]="form.paymentMethod" class="custom-luxury-input">
+            <ion-select-option value="Gcash">GCash</ion-select-option>
+            <ion-select-option value="Card">Debit/Credit Card</ion-select-option>
+            <ion-select-option value="Maya">Maya</ion-select-option>
+          </ion-select>
+          <ion-select fill="outline" label="Payment Type" label-placement="stacked" [(ngModel)]="form.paymentType" class="custom-luxury-input">
+            <ion-select-option value="partial">Partial Payment (20% of total)</ion-select-option>
+            <ion-select-option value="full">Full Payment (100% of total)</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
 
-  <div class="cost-box">
-    <h4>Cost Summary</h4>
-    <div>
-      <div>Room Price</div>
-      <strong>₱{{ formatCurrency(room?.price || 0) }} / night</strong>
-    </div>
-    <div>
-      <div>Number of Nights</div>
-      <strong>{{ nights }} nights</strong>
-    </div>
-    <div>
-      <div>Number of Rooms</div>
-      <strong>{{ form.rooms }}</strong>
-    </div>
-    <div>
-      <div>Subtotal</div>
-      <strong>₱{{ formatCurrency(subtotal) }}</strong>
-    </div>
-    <div>
-      <div>Discount ({{ (discountPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>-₱{{ formatCurrency(discountAmount) }}</strong>
-    </div>
-    <div>
-      <div>Promo ({{ (promoPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>-₱{{ formatCurrency(promoAmount) }}</strong>
-    </div>
-    <div *ngIf="form.paymentType === 'partial'">
-      <div>Amount to Pay (Downpayment {{ (downpaymentPercent * 100) | number:'1.0-0' }}%)</div>
-      <strong>₱{{ formatCurrency(downpaymentAmount) }}</strong>
-    </div>
-    <div *ngIf="form.paymentType === 'full'">
-      <div>Amount to Pay (Full Payment)</div>
-      <strong>₱{{ formatCurrency(total) }}</strong>
-    </div>
-    <div>
-      <div>Remaining Balance</div>
-      <strong>
-        <ng-container *ngIf="form.paymentType === 'partial'">₱{{ formatCurrency(remainingBalance) }}</ng-container>
-        <ng-container *ngIf="form.paymentType === 'full'">₱0</ng-container>
-      </strong>
-    </div>
-    <footer>
-      <div>Total Cost</div>
-      <strong>₱{{ formatCurrency(total) }}</strong>
-    </footer>
-  </div>
+      <!-- Cost Breakdown Receipt Card -->
+      <div class="cost-summary-card">
+        <div class="summary-header">
+          <div class="receipt-icon">&#10022;</div>
+          <h4>Reservation Summary</h4>
+          <span class="currency-tag">PHP (₱)</span>
+        </div>
+        <div class="summary-divider"></div>
 
-    <div class="actions">
-    <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
-    <ion-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid">Submit Booking</ion-button>
+        <div class="summary-rows-wrap">
+          <div class="summary-row">
+            <span class="row-label">Room Price</span>
+            <span class="row-val">₱{{ formatCurrency(room?.price || 0) }} / night</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Number of Nights</span>
+            <span class="row-val">{{ nights }} nights</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Number of Rooms</span>
+            <span class="row-val">{{ form.rooms }}</span>
+          </div>
+          <div class="summary-row subtotal-row">
+            <span class="row-label">Subtotal</span>
+            <span class="row-val">₱{{ formatCurrency(subtotal) }}</span>
+          </div>
+          <div class="summary-row discount-row" *ngIf="discountAmount > 0">
+            <span class="row-label">Discount ({{ (discountPercent * 100) | number:'1.0-0' }}%)</span>
+            <span class="row-val">-₱{{ formatCurrency(discountAmount) }}</span>
+          </div>
+          <div class="summary-row promo-row" *ngIf="promoAmount > 0">
+            <span class="row-label">Promo ({{ (promoPercent * 100) | number:'1.0-0' }}%)</span>
+            <span class="row-val">-₱{{ formatCurrency(promoAmount) }}</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row highlight-row" *ngIf="form.paymentType === 'partial'">
+            <span class="row-label">Amount to Pay (Downpayment {{ (downpaymentPercent * 100) | number:'1.0-0' }}%)</span>
+            <span class="row-val highlight-val">₱{{ formatCurrency(downpaymentAmount) }}</span>
+          </div>
+          <div class="summary-row highlight-row" *ngIf="form.paymentType === 'full'">
+            <span class="row-label">Amount to Pay (Full Payment)</span>
+            <span class="row-val highlight-val">₱{{ formatCurrency(total) }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Remaining Balance</span>
+            <span class="row-val">
+              <ng-container *ngIf="form.paymentType === 'partial'">₱{{ formatCurrency(remainingBalance) }}</ng-container>
+              <ng-container *ngIf="form.paymentType === 'full'">₱0</ng-container>
+            </span>
+          </div>
+        </div>
+
+        <div class="summary-total-footer">
+          <span class="total-label">Total Cost</span>
+          <span class="total-amount">₱{{ formatCurrency(total) }}</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="booking-actions-bar">
+        <ion-button fill="outline" class="btn-cancel" (click)="cancel()">
+          Cancel
+        </ion-button>
+        <ion-button class="btn-submit-booking" (click)="submitBooking()" [disabled]="!isFormValid">
+          <span>Confirm &amp; Submit Booking</span>
+        </ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -1,61 +1,99 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border luxury-header">
+  <ion-toolbar class="header-toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button class="custom-menu-btn"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="header-logo-container">
       <img class="logo" src="assets/img/logo.png" alt="Harvest Hotel" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>My Account</h2>
+<ion-content class="account-page-content">
+  <div class="account-header-banner">
+    <div class="category-badge">GUEST PROFILE &bull; SECURITY</div>
+    <h2 class="account-page-title">My Account</h2>
+    <div class="title-gold-bar"></div>
+    <p class="account-subtitle">Manage your personal information and account preferences</p>
+  </div>
 
-  <div class="account-grid">
-    <div class="avatar-box">
-      <div class="avatar-preview">
-        <img [src]="account.avatar" alt="avatar">
+  <div class="account-container">
+    <div class="account-grid">
+      <!-- Left: Avatar Card -->
+      <div class="avatar-card">
+        <div class="avatar-preview-wrap">
+          <div class="avatar-preview">
+            <img [src]="account.avatar || 'assets/img/avatar.png'" alt="avatar">
+          </div>
+          <label class="avatar-upload-btn">
+            <span>Change Photo</span>
+            <input type="file" accept="image/*" (change)="onAvatarChange($event)" />
+          </label>
+        </div>
+        <div class="avatar-meta">
+          <h3 class="profile-name">{{ account.fullName || 'Guest User' }}</h3>
+          <p class="profile-email">{{ account.email || 'guest@harvesthotel.com' }}</p>
+          <span class="role-badge">&#9733; Valued Guest</span>
+        </div>
       </div>
-      <input type="file" accept="image/*" (change)="onAvatarChange($event)" />
-    </div>
 
-    <div class="account-form">
-      <ion-item>
-        <ion-label position="stacked">Full Name</ion-label>
-        <ion-input [(ngModel)]="account.fullName"></ion-input>
-      </ion-item>
+      <!-- Right: Forms -->
+      <div class="account-forms-column">
+        <!-- Personal Info Card -->
+        <div class="luxury-form-card">
+          <div class="form-card-header">
+            <h3>Personal Information</h3>
+            <p>Update your display name and email address</p>
+          </div>
 
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email"></ion-input>
-      </ion-item>
+          <div class="form-inputs-wrap">
+            <ion-item lines="none" class="custom-input-item">
+              <ion-label position="stacked">Full Name</ion-label>
+              <ion-input [(ngModel)]="account.fullName" placeholder="Enter your full name"></ion-input>
+            </ion-item>
 
-      <div class="actions">
-        <ion-button color="primary" (click)="saveAccount()" [disabled]="!canSave">Save</ion-button>
-      </div>
+            <ion-item lines="none" class="custom-input-item">
+              <ion-label position="stacked">Email Address</ion-label>
+              <ion-input type="email" [(ngModel)]="account.email" placeholder="Enter your email address"></ion-input>
+            </ion-item>
 
-      <div class="password-section">
-        <h3>Change Password</h3>
-        <p>Your Password must be at least 6 characters and should include a combinations of numbers, letters and special characters (!@$_%).</p>
-        <ion-item>
-          <ion-label position="stacked">Current Password</ion-label>
-          <ion-input type="password" [(ngModel)]="oldPassword"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">New Password</ion-label>
-          <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Confirm Password</ion-label>
-          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
-        </ion-item>
-        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-        <div class="actions">
-          <ion-button color="secondary" (click)="changePassword()">Set Password</ion-button>
+            <div class="actions">
+              <ion-button class="save-profile-btn" (click)="saveAccount()" [disabled]="!canSave">
+                Save Changes
+              </ion-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password Card -->
+        <div class="luxury-form-card password-card">
+          <div class="form-card-header">
+            <h3>Change Password</h3>
+            <p class="pw-rules">Your password must be at least 6 characters and include a combination of numbers, letters and special characters (!&#64;$_%).</p>
+          </div>
+
+          <div class="form-inputs-wrap">
+            <ion-item lines="none" class="custom-input-item">
+              <ion-label position="stacked">Current Password</ion-label>
+              <ion-input type="password" [(ngModel)]="oldPassword" placeholder="Enter current password"></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="custom-input-item">
+              <ion-label position="stacked">New Password</ion-label>
+              <ion-input type="password" [(ngModel)]="newPassword" placeholder="Enter new password"></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="custom-input-item">
+              <ion-label position="stacked">Confirm Password</ion-label>
+              <ion-input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm new password"></ion-input>
+            </ion-item>
+            <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+            <div class="actions">
+              <ion-button fill="outline" class="set-pwd-btn" (click)="changePassword()">
+                Update Password
+              </ion-button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </ion-content>
